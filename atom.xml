@@ -1,0 +1,2306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Ryan Hoo]]></title>
+  <link href="http://ryanhoo.github.io/atom.xml" rel="self"/>
+  <link href="http://ryanhoo.github.io/"/>
+  <updated>2014-12-17T20:56:47+08:00</updated>
+  <id>http://ryanhoo.github.io/</id>
+  <author>
+    <name><![CDATA[Ryan Hoo]]></name>
+    <email><![CDATA[ryan.hoo.j@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[有 Github 帐号 ≠ Github]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/10/16/why-and-how-to-use-github/"/>
+    <updated>2014-10-16T17:58:51+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/10/16/why-and-how-to-use-github</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">这是一个误会</a></li>
+  <li><a href="#markdown">Markdown</a></li>
+  <li><a href="#git">你真的会用 Git?</a>    <ul>
+      <li><a href="#rebase-">rebase 是什么东西？好吃吗？</a></li>
+      <li><a href="#reset---hard-">不小心 reset –hard 了，代码全没了！</a></li>
+      <li><a href="#merge-">merge 之外，另有一番天地</a></li>
+    </ul>
+  </li>
+  <li><a href="#commit-message">好好写 commit message!</a></li>
+  <li><a href="#github-">分享与协作 —— Github 之真义</a></li>
+</ul>
+
+<blockquote>
+  <p>原文来自我在 Segmentfault 的回答：</p>
+
+  <p><a href="http://segmentfault.com/q/1010000000725223/a-1020000000725816">GitHub 应该放什么类型的代码?</a></p>
+</blockquote>
+
+<h2 id="section">这是一个误会</h2>
+
+<p>我想，现在很多程序员都对 Github 存在误解。</p>
+
+<p>大多都是觉得『虽不明，但觉厉』的样子，以为有个 Github 帐号就算是世界级的程序员了。</p>
+
+<p>由于公司招聘有 Github <strong>加分</strong>，所以很多人都把 Git 地址贴过去，然后就这样：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/c47b3d83f68acc5f3be155bc48482461.png" alt="空无一物的 Github" /></p>
+
+<p>其中不乏工作 <strong>5</strong> 年以上的，煞有介事的把 <strong>空无一物</strong> 的 Github 地址粘贴过去。
+个人来说，我要看应聘者的 Github，就是看你</p>
+
+<ul>
+  <li>做了什么项目</li>
+  <li>编码风格如何</li>
+  <li>能不能用 Git 做好版本控制</li>
+  <li>commit message 写得怎么样</li>
+  <li>工程管理习惯</li>
+  <li>等等</li>
+</ul>
+
+<p>从一个小地方能看出很多东西，我想如果 10 来分钟就能大致了解一个人的水平如何，不是能很好的节省招聘成本，为双方省时间么？</p>
+
+<h2 id="markdown">Markdown</h2>
+
+<p>现在有很多工作 <strong>5</strong> 年以上的程序员，<code>Markdown</code> 都不会好好写（我不仇视也不鄙视这样的人，因为都是可以学的）。Github 一个仓库下来总要写个 <code>README.md</code> 的吧？<code>README.md</code> 也能告诉我很多信息：</p>
+
+<ul>
+  <li><code>Markdown</code> 水平不说</li>
+  <li>文档的编写风格决定了我能不能跟 TA 做朋友（无所谓的态度、乱糟糟的文档，我不喜欢这样的程序员，哪怕他水平比我高很多，团队协作的时候他会不在乎很多东西）</li>
+  <li>把合作对象当做用户来友好对待（一个好的 <code>README.md</code> 能让别人省很多事情，同样，一个清晰明了的文档能让 coworker 少很多愚蠢的问题）</li>
+</ul>
+
+<h2 id="git">你真的会用 Git?</h2>
+
+<p>很久之前，我还是个无知的菜鸟的时候（当然我现在也很弱，但我知道自己是无知的），我恐惧 CLI（命令行），依赖 GUI（图形工具，IDE 自带），然后<code>勾选修改</code> -&gt; <code>commit</code> -&gt; <code>pull</code> -&gt; <code>merge</code> -&gt; <code>checkout</code>，大概就这么多了，这都没有问题的，好歹能用上版本控制了不是？</p>
+
+<p>但是我想用 GUI 的人，多多少少没有良好的 Git 使用习惯，<code>conflict</code> 处理粗暴简单，不管提交能不能 <code>Fast forward</code>，提交就是了，<code>merge develop from xxxx.com into develop</code>这种粗暴的 <code>merge</code>？没关系，TA 不在意。</p>
+
+<p>Git 的学习曲线确实相对陡峭，除了基础的哲学理念让人糊涂，Git 很多陷阱难以轻易的复现，学习起来非常痛苦，它简洁，却又晦涩难懂。你用 <code>git add | git commit | git push | git pull | git merge</code> 觉得已经够了，等到你做了一些让队友恨得牙痒痒的事情的时候，你发现那几条单薄的命令只会让你难堪。</p>
+
+<h3 id="rebase-">rebase 是什么东西？好吃吗？</h3>
+
+<p>没有学会用 rebase，就别出去跟人说会用 Git 了。Git <code>merge</code> 合并让你觉得成就感爆棚，但是看看别人是如何优雅的使用 <code>rebase</code> 衍合分支的，心里总归有点儿羡慕吧。</p>
+
+<h3 id="reset---hard-">不小心 reset –hard 了，代码全没了！</h3>
+
+<p>与其哭着重新写一遍，不如了解下 Git <code>DVCS</code> 是用来干嘛的。
+<code>git reflog</code> 找到自己的提交记录，<code>git cherry-pick [commit hash code]</code>，喏，代码还在呢。</p>
+
+<h3 id="merge-">merge 之外，另有一番天地</h3>
+
+<p><code>git rebase --onto</code>
+<code>git rebase -i</code>
+等到基础差不多了，玩玩这两条命令吧。</p>
+
+<h2 id="commit-message">好好写 commit message!</h2>
+
+<p>相信这样的 commit message 不少见：</p>
+
+<ul>
+  <li>init</li>
+  <li>update</li>
+  <li>merge</li>
+  <li>chore</li>
+  <li>提交</li>
+  <li>解决了一些问题</li>
+  <li>增加了一些功能</li>
+</ul>
+
+<p>我去，大神你写这样的 commit message 给鬼看啊？<code>git log</code> 你看看都是写的是些什么，我真不指望你看着 commit 时间戳就能知道那天你干了什么。</p>
+
+<p>看看别人怎么写的吧：</p>
+
+<ul>
+  <li><code>feat(超文本驱动和资源发现): 增加了 JSON API 方案</code></li>
+  <li><code>fix(请求方法): 更新完资源后应该返回状态码 202</code></li>
+  <li><code>chore(): 增加了补充性质的文件 SUPPLEMENT.md</code></li>
+</ul>
+
+<p>诶，是不看起来是 <code>readable</code> 了？</p>
+
+<h2 id="github-">分享与协作 —— Github 之真义</h2>
+
+<p>Git 不是看两本书就能立地成牛了，是要在日常版本管理与协作中锻炼出来的。</p>
+
+<p>没事给自己经常用的第三方库提几个 <code>issue</code>，改几个 bug 写几行代码，然后提起 <code>pull request</code>。</p>
+
+<p>同样的，自己有个好的 idea 也可以写个框架提交在上去，广邀四方英雄来参与你的项目。</p>
+
+<p>这里其实有很多要说的，却发现什么也说不出来了。</p>
+
+<p>哦，忘记重点了，不要怕初级太简单而被人鄙视，谁都是这么过来的。</p>
+
+<p>另外也别光说不练，贴上我的 <a href="https://github.com/ryanhoo">Github</a>，其实还有很多改善的地方。如前面所说：我知道自己无知，我在努力。;-)</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【译】使用 Fragment 自定义动画]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/09/30/custom-animations-with-fragments/"/>
+    <updated>2014-09-30T21:32:45+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/09/30/custom-animations-with-fragments</id>
+    <content type="html"><![CDATA[<blockquote>
+  <p>作者：<a href="http://cyrilmottier.com/">Cyril Mottier</a></p>
+
+  <p>原文：<a href="http://cyrilmottier.com/2014/05/20/custom-animations-with-fragments">Custom Animations With Fragments</a></p>
+</blockquote>
+
+<p><strong>作者按</strong>：一般来说，我发表的博客通常都是与我日常工作无关的。但是下面这篇文章提及了我在 Capitaine Train 所做的一些工作。因此，我觉得需要特此声明：我在 Capitaine Train 工作，但是我在博客以及其它任何地方（Twitter, Google+ 等）表达的观点，仅限于我个人，与我的雇主无关。</p>
+
+<p>在过去的几个月里，我一直忙于从无到有的开发一个 Android 应用。这个应用以我公司的名字命名 —— Capitaine Train，可以在 Google Play 商店下载。Capitaine Train 从字面翻译成英文是 Captain Train，这是一个有着 3 年历史的创业公司，它秉持一个简单的理念而生：在欧洲买火车票是一件极为令人痛苦的事情，而我们 —— Capitaine Train 致力于通过简化整体乘车体验来彻底变革人们来往欧洲各国旅行的方式。这一版的 Android 应用意味着我们在这一方向上迈出了重要的一步。</p>
+
+<p>试图去变革欧洲的乘车体验绝对不是一件简单的事情。这意味着我们要完成大量的工作：了解各种各样的铁路运营商、研究他们各自的文档以及预订要求、集成他们的价格/时间表、将他们的服务接口绑定到我们的系统，等等等等。从用户的角度来看，这一切都是隐藏的，但却是至关重要的，而这只是冰山一角。确实，一次旅行的需求或者愿望起始于一个简单得不能再简单的搜索请求：从哪里来？到哪里去？什么时候？跟谁？尽管这些问题非常简单，但搜索的步骤在整个预订的环节是至关重要的。毕竟这是一次旅行的起点。在设计这个 Android 应用的过程中，我们始终不忘最初的理念，尽可能简化每一步的操作流程。在这篇文章中，我很乐意跟你们分享我是如何实现这个搜索体验以及我们如何利用动画来提升用户体验。</p>
+
+<h2 id="section">从网页端到移动端</h2>
+
+<p>当我到 Capitaine Train 并开始着手 Android 应用的开发工作时，我先浏览了当下所有进行中的项目产品。比如 iOS 应用，当时还没有发布，但是已经快速成型了。另外的，比如我们的 Web 端应用，已经公开面向大众并且在用户中非常受欢迎。我那时的主要工作是构建一个能让用户觉得他们在用最好的 Android 应用订票的产品。而且这个应用必须反应出 Capitaine Train 的本质以及Android 风格的外观。由于当时 Web 应用是唯一发布的，显然我大部分的草稿都是基于它的。这是 <a href="capitainetrain.com">capitainetrain.com</a> 的搜索表单：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/search_web.gif" alt="search form" /></p>
+
+<p><a href="http://cyrilmottier.com/media/2014/05/custom-animations-with-fragments/search_web.mp4">播放 mp4</a></p>
+
+<p>两列（搜索表单 + 选项）的设计在网页上表现很完美，但我们很快就在移动端面临一个难题：我们没有足够的空间把表单和选项面板都放在一个屏幕里。因为手机屏幕实在是太小了，别无选择，我们只好回到 master/detail（主从） 模式。此时有两个众所周知且简单可行的选项摆在我们面前：master/detail（主从） 模式和 edition dialogs（对话框编辑） 模式。但是我们对这些模式并不满意，实际上，对话框完全打断了用户操作流程，并且在表单中至少有 4 个地方需要对话框，这将会极为令人生厌。从另一方面来说，如果每编辑一个信息就打开一个全屏的『选项』 Activity，这样高度复杂的屏幕层级关系和应用结构会导致一部分用户的流失。我想这些模式都不够有效也不适合 Capitaine Train 的 Android 应用。</p>
+
+<p>我们当然想复制 Web 网页上简洁明了的搜索方式，最终我们想到一个完美的方案。与其为每一个表单字段打开一个模态视图，我们设法将表单栏和选项面板合并在一个屏幕内。默认情况下，应用显示所有可供选择的搜索表单。点击其中任何一个字段将会切换到『编辑模式』，而此时编辑的字段在顶部可见，表单的其余部分则隐藏起来以显示该字段对应的选项面板。下面的视频显示了完整的搜索流程使用示例：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/search_android.gif" alt="search android" /></p>
+
+<p><a href="http://cyrilmottier.com/media/2014/05/custom-animations-with-fragments/search_android.mp4">播放 mp4</a></p>
+
+<p>通过我们精心设计的过渡动画，上面的示例看起来表现不错。确实，如果没有这些过渡动画的话，这些功能将会变得无法使用。给应用加入适当的过渡动画是一个丰富用户体验的好办法，它让用户直观的理解到他们每一个行为所带来的结果。如牛顿所说，每一个行动必有一个结果：过渡解释了 UI 切换间的变化。从一个屏幕切换到另一个屏幕时，它能避免给人带来『屏幕堆砌』的印象。它让用户觉得整个应用都是由一个屏幕构成的，里面的 UI 元素通过动画来显示或者隐藏应用的某一部分。换句话说，过渡动画打破了传统疆界并使得应用导航更为自然。</p>
+
+<h2 id="section-1">过渡动画分解</h2>
+
+<p>过渡动画通常很快而且一闪即逝令人难以察觉。为了更好的理解动画细节、创建动画以及逆向工程可以考虑让动画慢下来，结果将会非常有意思。如果你有应用源码的话，显然可以增加动画的时间值。不然的话，你需要录制应用的操作视频然后一帧一帧的看慢动作。幸运的是，Android 给我们提供了一个非常有用的技巧：开发者模式下有一个选项叫做『动画时长调整』(Animator duration scale)，顾名思义，这个选项可以调整系统级别的动画时长。</p>
+
+<p>为了更好的理解当搜索表单与时间编辑模式切换时发生了什么，让我们用上面提到的技巧来一窥究竟。下面的屏幕录制是在普通动画 10 倍（10x）的时长下进行的：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/search_android_slow.gif" alt="search android slow" /></p>
+
+<p><a href="http://cyrilmottier.com/media/2014/05/custom-animations-with-fragments/search_android_slow.mp4">播放 mp4</a></p>
+
+<p>通过上面慢放的操作视频，我们可以细致的观察编辑模式的渐变。更具体地说，你可能已经注意到渐变最终被分成了几个同时进行的子动画，它们有着共同的时间属性（duration、interpolator 等等）。</p>
+
+<p><a href="http://cyrilmottier.com/2014/05/20/custom-animations-with-fragments">未完待续…</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【疑难杂症】Android WebView 无法打开天猫页面]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled/"/>
+    <updated>2014-09-17T11:14:25+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">定位问题</a>    <ul>
+      <li><a href="#chrome-inspcet-device">Chrome Inspcet Device</a></li>
+      <li><a href="#android-logcat">Android Logcat</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-1">分析问题</a>    <ul>
+      <li><a href="#section-2">追根溯源</a></li>
+      <li><a href="#section-3">代码分析</a>        <ul>
+          <li><a href="#localstorage">localStorage</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#section-4">解决问题</a></li>
+  <li><a href="#section-5">参考</a></li>
+</ul>
+
+<blockquote>
+  <p>欢迎转载，但请务必注明出处！</p>
+
+  <p><a href="http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled">http://ryanhoo.github.io/blog/2014/09/17/android-webview-setdomstorageenabled</a></p>
+</blockquote>
+
+<p>Android WebView 突然无法打开天猫的详情页，一直停留在加载状态。而在此之前，应用里是完全可以正常访问的，通过搜索，找到解决方法，简单设置一行代码 
+<code>webView.getSettings().setDomStorageEnabled(true)</code> 即可解决问题，但背后的原因又是什么呢？</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/34cb73b6bb0dfbac04b1f50d6a58c05a.png" alt="Android WebView Can't Load TMall Pages" /></p>
+
+<p>我们不能只是做解决问题的程序员，还要做好奇的程序员，跟我来一探究竟吧。</p>
+
+<h1 id="section">定位问题</h1>
+
+<p>本着<strong>发现问题 -&gt; 分析问题 -&gt; 解决问题</strong>的步骤，接下来我们要定位问题的来源。</p>
+
+<h2 id="chrome-inspcet-device">Chrome Inspcet Device</h2>
+
+<p>我首先想到的是，Android 4.4 以后的 WebView 是基于 chromium 内核的，这带来了一个福利是，我们可以在 chrome 中 inspect device，像普通网页一样，进行 debug，精准、快速定位问题来源。正好我手头有 Nexus 5 刷的是 <strong>Android L Preview</strong> 还有 Mi3 是最新的 <strong>MIUI V6</strong>，打开 Chrome，<code>Tools</code> -&gt; <code>Inspect Devices</code>，就可以看到原生应用里的 WebView 页面了。</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/d5681ec2448ebb4bfd6e22eb805d7ad6.png" alt="Chrome Inspect Devices" /></p>
+
+<p>点击 <code>inspect</code> 即可进入 <strong>Developer Tools</strong>，一切尽在掌控，可以清楚看到 console 输出的错误信息。</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/45c5b879756949cb1e70523f5aad0276.png" alt="Chrome Developer Tools" /></p>
+
+<h2 id="android-logcat">Android Logcat</h2>
+
+<p>实际上，网页加载中 js 输出的错误信息也完整的打印在了 Logcat 中。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="mi">09</span><span class="o">-</span><span class="mi">17</span> <span class="mi">11</span><span class="o">:</span><span class="mi">28</span><span class="o">:</span><span class="mf">20.265</span>  <span class="mi">25993</span><span class="o">-</span><span class="mi">25993</span><span class="o">/</span> <span class="n">I</span><span class="o">/</span><span class="n">chromium</span><span class="err">﹕</span> <span class="o">[</span><span class="nl">INFO:</span><span class="n">CONSOLE</span><span class="o">(</span><span class="mi">2</span><span class="o">)]</span> <span class="s">&quot;TypeError: Cannot read property &#39;hotelLon&#39; of null</span>
+</span><span class="line"><span class="s">  at BaseDerived.g.extend.loadItemData (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??pages/tuan/detail.js:2:8436)</span>
+</span><span class="line"><span class="s">  at BaseDerived.g.extend.initializer (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??pages/tuan/detail.js:2:340)</span>
+</span><span class="line"><span class="s">  at BaseDerived.initializer (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:24184)</span>
+</span><span class="line"><span class="s">  at BaseDerived.Base (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:24486)</span>
+</span><span class="line"><span class="s">  at BaseDerived.S.extend.callSuper (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:26305)</span>
+</span><span class="line"><span class="s">  at BaseDerived (eval at extend (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:27954), &lt;anonymous&gt;:1:51)</span>
+</span><span class="line"><span class="s">  at BaseDerived.S.extend.callSuper (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:26305)</span>
+</span><span class="line"><span class="s">  at new BaseDerived (eval at extend (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:27954), &lt;anonymous&gt;:1:51)</span>
+</span><span class="line"><span class="s">  at Object.&lt;anonymous&gt; (http://h5.m.taobao.com/trip/hotel/tuan/detail.html?itemId=40987076007:426:22)</span>
+</span><span class="line"><span class="s">  at o (http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918:3:4799)&quot;</span><span class="o">,</span> <span class="nl">source:</span> <span class="nl">http:</span><span class="c1">//g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918 (2)</span>
+</span><span class="line"><span class="mi">09</span><span class="o">-</span><span class="mi">17</span> <span class="mi">11</span><span class="o">:</span><span class="mi">28</span><span class="o">:</span><span class="mf">20.265</span>  <span class="mi">25993</span><span class="o">-</span><span class="mi">25993</span><span class="o">/</span> <span class="n">I</span><span class="o">/</span><span class="n">chromium</span><span class="err">﹕</span> <span class="o">[</span><span class="nl">INFO:</span><span class="n">CONSOLE</span><span class="o">(</span><span class="mi">2</span><span class="o">)]</span> <span class="s">&quot;Uncaught TypeError: Cannot read property &#39;hotelLon&#39; of null&quot;</span><span class="o">,</span> <span class="nl">source:</span> <span class="nl">http:</span><span class="c1">//g.tbcdn.cn/trip/h5-hotel/0.3.52/??libs/seed.js,config.js,widgets/bridge/index.js,widgets/mtop/index.js?v=1203354280_108918 (2)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h1 id="section-1">分析问题</h1>
+
+<h2 id="section-2">追根溯源</h2>
+
+<p>以上两种方式找到的错误信息（相同的）列出了错误栈信息，第一条错误是发生在 <code>http://g.tbcdn.cn/trip/h5-hotel/0.3.52/??pages/tuan/detail.js</code> 的第 2 行第 8436 列。在浏览器中打开这个 js 文件，显而易见它是被压缩过的，复制在 IDE 如 Sublime Text 中格式化，根据错误信息 <code>"TypeError: Cannot read property 'hotelLon' of null</code> 搜索 <strong>hotelLon</strong>，可以找到相关代码。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+</pre></td><td class="code"><pre><code class="javascript"><span class="line"><span class="nx">loadItemData</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">	<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+</span><span class="line">		<span class="nx">c</span> <span class="o">=</span> <span class="o">!</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="line">	<span class="nx">a</span><span class="p">.</span><span class="nx">loading</span><span class="p">.</span><span class="nx">show</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">curLongitude</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getRequestParam</span><span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getRequestParam</span><span class="p">(</span><span class="s2">&quot;lng&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="o">||</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">hotelLon</span>
+</span><span class="line">		<span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">curLatitude</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getRequestParam</span><span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getRequestParam</span><span class="p">(</span><span class="s2">&quot;lat&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="o">||</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">hotelLat</span>
+</span><span class="line">		<span class="o">||</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fetchItemData</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">		<span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">?</span> <span class="nx">MockData</span><span class="p">.</span><span class="nx">data</span> <span class="o">:</span> <span class="nx">d</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">$</span><span class="p">.</span><span class="nx">isEmptyObject</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">c</span> <span class="o">?</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ret</span> <span class="o">&amp;&amp;</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">?</span> <span class="k">void</span> <span class="nx">a</span><span class="p">.</span><span class="nx">showError</span><span class="p">(</span><span class="s2">&quot;.J_detail&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;::&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;##&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">o</span><span class="p">)</span> <span class="o">:</span> <span class="k">void</span> <span class="nx">a</span><span class="p">.</span><span class="nx">showError</span><span class="p">(</span><span class="s2">&quot;.J_detail&quot;</span><span class="p">,</span> <span class="s2">&quot;\u4eb2\uff0c\u8be5\u9152\u5e97\u6682\u65e0\u56e2\u8d2d\u4fe1\u606f\u3002&quot;</span> <span class="o">+</span> <span class="nx">o</span><span class="p">)</span> <span class="o">:</span> <span class="s2">&quot;1&quot;</span> <span class="o">==</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">.</span><span class="nx">isPreItem</span> <span class="o">?</span> <span class="k">void</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">b</span><span class="p">(</span><span class="s2">&quot;http://h5.m.taobao.com/awp/core/detail.htm?id=${itemId}&amp;ttid=${ttid}&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class="line">			<span class="nx">itemId</span><span class="o">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">getRequestParam</span><span class="p">(</span><span class="s2">&quot;itemid&quot;</span><span class="p">),</span>
+</span><span class="line">			<span class="nx">ttid</span><span class="o">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">ttid</span>
+</span><span class="line">		<span class="p">}))</span> <span class="o">:</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">dirtyDataProcess</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.J_detail&quot;</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">renderTitle</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">countdownInit</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">submitButtonStatusInit</span><span class="p">(),</span> <span class="nx">n</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{}),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">sliderInit</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">.</span><span class="nx">propertiesMap</span> <span class="o">&amp;&amp;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">skuModule</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.J_sku&quot;</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">priceModule</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.J_discount&quot;</span><span class="p">)),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">loadRateInfo</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">.</span><span class="nx">hotelList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">hid</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">.</span><span class="nx">hotelList</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shid</span><span class="p">),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindSliderClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindServiceClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindRateClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindSubHallClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindDescClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindMapClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindSkuModuleEvent</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindRecommendItemClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindFavoriteClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindShareClick</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">bindSubmitEvent</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">isTripClient</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.J_discount&quot;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;sticky&quot;</span><span class="p">),</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.J_favorite&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">(),</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.fav-line&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()),</span> <span class="nx">i</span><span class="p">.</span><span class="nx">locStorage</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;hotel-tuan-detailHotelList&quot;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+</span><span class="line">			<span class="nx">hotelList</span><span class="o">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">detailData</span><span class="p">.</span><span class="nx">hotelList</span>
+</span><span class="line">		<span class="p">})),</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.call-seller&quot;</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;touchstart&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">			<span class="nx">a</span><span class="p">.</span><span class="nx">sendPoint</span><span class="p">(</span><span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="s2">&quot;TuanHotel&quot;</span><span class="p">,</span> <span class="s2">&quot;Call&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="p">}),</span> <span class="k">void</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.wangxin-waptowx&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;touchstart&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">			<span class="nx">a</span><span class="p">.</span><span class="nx">sendPoint</span><span class="p">(</span><span class="s2">&quot;Button&quot;</span><span class="p">,</span> <span class="s2">&quot;TuanHotel&quot;</span><span class="p">,</span> <span class="s2">&quot;Contact&quot;</span><span class="p">)</span>
+</span><span class="line">		<span class="p">}))</span>
+</span><span class="line">	<span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class="line">		<span class="nx">a</span><span class="p">.</span><span class="nx">loading</span><span class="p">.</span><span class="nx">hide</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">showError</span><span class="p">(</span><span class="s2">&quot;.J_detail&quot;</span><span class="p">,</span> <span class="s2">&quot;\u4eb2\uff0c\u7f51\u7edc\u5f00\u5c0f\u5dee\uff0c\u8bfb\u53d6\u6570\u636e\u5931\u8d25\u3002&quot;</span> <span class="o">+</span> <span class="nx">o</span><span class="p">)</span>
+</span><span class="line">	<span class="p">})</span>
+</span><span class="line"><span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section-3">代码分析</h2>
+
+<p>在上面这段代码的 loadItemData 方法中，第 6 行 <code>localStorage.hotelLon</code>，在这里读取了 localStorage 的 hotelLon 信息，顾名思义，就是酒店的经度，但是提示的错误信息是无法读取 hotelLon。如果对 localStorage 有所了解的话，应该知道即便没有 hotelLon，也不会报错，而是 <strong>undefined</strong>。</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/e6ff9ad286da4dae4c75ea3613980ff5.png" alt="localStorage fetch a non-existed variable" /></p>
+
+<h3 id="localstorage">localStorage</h3>
+
+<p>到这里，需要补充一下 localStorage 的知识。</p>
+
+<p>HTML5 Storage主要有：</p>
+
+<ul>
+  <li>sessionStorage: 会话 (session) 级别的数据存储，会话结束后，相关的数据就会被清除掉。</li>
+  <li>localStorage: 用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。</li>
+</ul>
+
+<p>作为 HTML5 标准的一部分，绝大多数的浏览器都是支持 localStorage 的，但是鉴于它的安全特性（任何人都能读取到它，尽管有相应的限制，将敏感数据存储在这里依然不是明智之举），Android 默认是关闭该功能的。</p>
+
+<h1 id="section-4">解决问题</h1>
+
+<p>经过层层分析，问题指向如何开启 localStorage 了。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="c1">// Gets whether the DOM Storage APIs are enabled.</span>
+</span><span class="line"><span class="n">webView</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h1 id="section-5">参考</h1>
+<ol>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage">DOM Storage guide</a></li>
+  <li><a href="http://diveintohtml5.info/detect.html">Dive into HTML5: LOCAL STORAGE</a></li>
+  <li><a href="http://blog.baiwand.com/?post=184">HTML5之Web Storage(本地存储)详解</a></li>
+  <li><a href="http://stackoverflow.com/questions/5858760/what-does-enable-dom-storage-api-mean">StakeOverflow: What does “enable DOM storage API” mean?</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[安装 Xcode 后命令行提示错误]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/08/12/agreeing-to-the-xcode-license-from-the-command-line/"/>
+    <updated>2014-08-12T21:37:31+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/08/12/agreeing-to-the-xcode-license-from-the-command-line</id>
+    <content type="html"><![CDATA[<p>在安装完新版本的 Xcode 后，在 iTerm 中执行命令总会有这样的提示：</p>
+
+<blockquote>
+  <p>Agreeing to the Xcode/iOS license requires admin privileges, please re-run as root via sudo.</p>
+</blockquote>
+
+<p>这个时候执行 <code>sudo xcrun cc</code> 就可以显示 apple license ，输入 <strong>agree</strong> 即可。</p>
+
+<p>参考: <a href="http://blog.tomhennigan.co.uk/post/62238548037/agreeing-to-the-xcode-license-from-the-command-line">Agreeing to the Xcode license from the command line</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Parallax Animation]实现知乎 Android 客户端启动页视差滚动效果]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/07/16/step-by-step-implement-parallax-animation-for-splash-screen-of-zhihu/"/>
+    <updated>2014-07-16T18:22:58+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/07/16/step-by-step-implement-parallax-animation-for-splash-screen-of-zhihu</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">前言</a></li>
+  <li><a href="#section-1">界面分析</a></li>
+  <li><a href="#parallax-scrolling">Parallax Scrolling</a>    <ul>
+      <li><a href="#viewpagerpagetransformer">ViewPager.PageTransformer</a>        <ul>
+          <li><a href="#param-1-view-page">Param 1: View page</a></li>
+          <li><a href="#param-2-float-position">Param 2: float position</a></li>
+        </ul>
+      </li>
+      <li><a href="#parallaxtransformer">ParallaxTransformer</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-2">背景渐变</a></li>
+  <li><a href="#section-3">源码</a>    <ul>
+      <li><a href="#github--zhihu-parallax-animation3">Github : <a href="https://github.com/ryanhoo/Zhihu-Parallax-Animation">Zhihu-Parallax-Animation</a></a></li>
+    </ul>
+  </li>
+  <li><a href="#section-4">参考</a></li>
+</ul>
+
+<blockquote>
+  <p>欢迎转载，但请务必注明出处！</p>
+
+  <p><a href="http://ryanhoo.github.io/blog/2014/07/16/step-by-step-implement-parallax-animation-for-splash-screen-of-zhihu/">http://ryanhoo.github.io/blog/2014/07/16/step-by-step-implement-parallax-animation-for-splash-screen-of-zhihu/</a></p>
+</blockquote>
+
+<h1 id="section">前言</h1>
+
+<p><code>Parallax Scrolling (视差滚动)</code>，是一种常见的动画效果。视差一词来源于天文学，但在日常生活中也有它的身影。在疾驰的动车上看风景时，会发现越是离得近的，相对运动速度越快，而远处的山川河流只是缓慢的移动着，这就是最常见的视差效果。视差动画独有的层次感能带来极为逼真的视觉体验，<strong>iOS</strong>、<strong>Android Launcher</strong>、<strong>Website</strong> 都将视差动画作为提升用户视觉愉悦度的不二选择。</p>
+
+<p>客户端应用第一次打开出现引导页也不是什么新鲜的事儿，<code>ViewPager</code> 配上几张设计师精心绘制的图片，分分钟即可了事。但是总有人把平凡的事情做到不平凡，如本文的知乎客户端，亦或是新浪微博贺岁版，百度贴吧某版等众多应用里都出现了视差动画的身影，随着用户手指的滑动，反馈以灵动、贴近真实的视觉以及操作体验，对应用的初始印象登时被提升到一个极高的点。</p>
+
+<p>给我印象最深的是去年新浪微博的贺岁版，引导页是一系列的年画，里面有红色剪纸的小孩儿，滑动界面的时候感觉这些元素在『动』，是真正的灵动，能勾起人童年的回忆，年味儿十足。不过话说我年怎么过跟新浪微博一毛钱关系都没有，但是这个启动页却是深得我意。只是这个版本的微博找不到了，正好前两天看到知乎的启动页做的也不错，就正好拿来练练手吧。</p>
+
+<p>本文就知乎 Android 客户端启动页面为例，教你如何实现视差滚动效果。</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/zhihu-parallax-animation.gif" alt="知乎 Android 客户端启动页" /></p>
+
+<h1 id="section-1">界面分析</h1>
+
+<p>细心把玩下知乎的启动页，不难分析出来，视差动画主要体现在背景层渐变、内容层元素差异滚动上，动画内容分别是：</p>
+
+<ul>
+  <li>内容：元素差异滚动，形成视差效果(*)</li>
+  <li>背景：随着界面的滑动，颜色由深蓝色渐变为浅蓝色(*)</li>
+  <li>文字：底部提示文案会随页面变动而切换，有简单的淡入淡出效果</li>
+  <li>界面动画：界面打开，元素的出场动画（第一页以及最后一页）</li>
+</ul>
+
+<p>鉴于其它几项比较简单，本文主要讲视差动画以及背景渐变的实现，其它几项请自行参阅代码，见后文。</p>
+
+<h1 id="parallax-scrolling">Parallax Scrolling</h1>
+
+<p>这里的视差滚动效果，主要表现为内容元素滚动速率的差异上。比如在 <code>ViewPager</code> 中滑动了 <code>1px</code> ，而 <strong>A</strong> 元素移动 <code>2px</code> ， <strong>B</strong> 元素移动 <code>1.5px</code> ，这种移动差距的比率，我称之为 <code>parallaxCofficient</code> ，即 <strong>视差系数</strong> 或者 <strong>视差速率</strong> ，正是同一个界面中的元素，由于层级不同，赋予的视差系数不同，在移动速度上的差异形成了视差的错觉，这就是我们要追求的效果。</p>
+
+<p>那知道原理就好办了，使用 <code>ViewPager.OnPageChangeListener</code> ，动态计算不就得了。 no no no ! 后面完成背景渐变效果确实需要计算这个，但是 <code>ViewPager</code> 已经为我们准备好了变形元素 <strong>transformium</strong> : <code>ViewPager.PageTransformer</code> ，它有一个抽象方法 <code>transformPage(View page, float position)</code> ，正是为我们完成视差动画量身定制的。</p>
+
+<h2 id="viewpagerpagetransformer">ViewPager.PageTransformer</h2>
+
+<p><a href="https://developer.android.com/reference/android/support/v4/view/ViewPager.PageTransformer.html">PageTransformer</a> 在 <code>ViewPager</code> 滑动时被触发，它为我们自定义页面中进行视图变换打开了一扇大门。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">transformPage</span> <span class="o">(</span><span class="n">View</span> <span class="n">page</span><span class="o">,</span> <span class="kt">float</span> <span class="n">position</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>在 <code>ViewPager</code> 源码中，我们可以很直观的看到它的调用过程：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="c1">// ViewPager#onPageScrolled</span>
+</span><span class="line"><span class="k">if</span> <span class="o">(</span><span class="n">mPageTransformer</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">scrollX</span> <span class="o">=</span> <span class="n">getScrollX</span><span class="o">();</span>
+</span><span class="line">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">childCount</span> <span class="o">=</span> <span class="n">getChildCount</span><span class="o">();</span>
+</span><span class="line">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">childCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class="line">        <span class="kd">final</span> <span class="n">View</span> <span class="n">child</span> <span class="o">=</span> <span class="n">getChildAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span><span class="line">        <span class="kd">final</span> <span class="n">LayoutParams</span> <span class="n">lp</span> <span class="o">=</span> <span class="o">(</span><span class="n">LayoutParams</span><span class="o">)</span> <span class="n">child</span><span class="o">.</span><span class="na">getLayoutParams</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line">        <span class="k">if</span> <span class="o">(</span><span class="n">lp</span><span class="o">.</span><span class="na">isDecor</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">        <span class="kd">final</span> <span class="kt">float</span> <span class="n">transformPos</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">child</span><span class="o">.</span><span class="na">getLeft</span><span class="o">()</span> <span class="o">-</span> <span class="n">scrollX</span><span class="o">)</span> <span class="o">/</span> <span class="n">getClientWidth</span><span class="o">();</span>
+</span><span class="line">        <span class="n">mPageTransformer</span><span class="o">.</span><span class="na">transformPage</span><span class="o">(</span><span class="n">child</span><span class="o">,</span> <span class="n">transformPos</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="param-1-view-page">Param 1: View page</h4>
+
+<p>从上面的代码中，不难看出，<code>page</code> 就是当前被滑动的页面，调试得知，每一个 <strong>child view</strong> 被 <code>NoSaveStateFrameLayout</code> 包装，也就是说 <code>page.getChildAt(0)</code> 即是每个 <code>page</code> 实际的 <strong>child view</strong> 。</p>
+
+<h4 id="param-2-float-position">Param 2: float position</h4>
+
+<p><code>position</code> 这个参数不看代码或者文档，总会误以为就是我们熟知的 <code>integer position</code> ，不过它实际上是滑动页面的一个相对比例，本质跟 1、2、3、4 这种 <code>position</code> 是一样的。</p>
+
+<p>比如知乎启动页共有 <strong>6</strong> 个页面，分别是 <strong>A</strong>、<strong>B</strong>、<strong>C</strong>、<strong>D</strong>、<strong>E</strong>、<strong>F</strong> 初始状态也就是 <strong>A</strong> 页面静止时，<strong>A</strong> 页面的 <code>position</code> 正好是 <strong>0</strong> ，<strong>B</strong> 页面是 <strong>1</strong> 。而后滑动页面（B -&gt; A），在这个过程中 <strong>A</strong> 的 <code>position</code> 是间于 <code>[-1, 0]</code> ，<strong>B</strong> 页面则是间于 <code>[0, 1]</code> 。</p>
+
+<p>不过这个参数的文档却是简单不够直观，对照上面的例子，现在应该很清晰了。</p>
+
+<blockquote>
+  <p>Position of page relative to the current front-and-center position of the pager. 0 is front and center. 1 is one full page position to the right, and -1 is one page position to the left.</p>
+</blockquote>
+
+<h2 id="parallaxtransformer">ParallaxTransformer</h2>
+
+<p>根据上面的分析，我们可以得出一个相对简单的自定义 <strong>transformer</strong> ，对 <code>page view</code> 进行遍历，递增或者递减其 <code>parallaxCofficient</code> ，以得到我们预期的效果，具体的系数设置请参考代码。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">class</span> <span class="nc">ParallaxTransformer</span> <span class="kd">implements</span> <span class="n">ViewPager</span><span class="o">.</span><span class="na">PageTransformer</span> <span class="o">{</span>
+</span><span class="line">
+</span><span class="line">    <span class="kt">float</span> <span class="n">parallaxCoefficient</span><span class="o">;</span>
+</span><span class="line">    <span class="kt">float</span> <span class="n">distanceCoefficient</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="kd">public</span> <span class="nf">ParallaxTransformer</span><span class="o">(</span><span class="kt">float</span> <span class="n">parallaxCoefficient</span><span class="o">,</span> <span class="kt">float</span> <span class="n">distanceCoefficient</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="k">this</span><span class="o">.</span><span class="na">parallaxCoefficient</span> <span class="o">=</span> <span class="n">parallaxCoefficient</span><span class="o">;</span>
+</span><span class="line">        <span class="k">this</span><span class="o">.</span><span class="na">distanceCoefficient</span> <span class="o">=</span> <span class="n">distanceCoefficient</span><span class="o">;</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="nd">@Override</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transformPage</span><span class="o">(</span><span class="n">View</span> <span class="n">page</span><span class="o">,</span> <span class="kt">float</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="kt">float</span> <span class="n">scrollXOffset</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">*</span> <span class="n">parallaxCoefficient</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1">// ...</span>
+</span><span class="line">        <span class="c1">// layer is the id collection of views in this page</span>
+</span><span class="line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">id</span> <span class="o">:</span> <span class="n">layer</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">            <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+</span><span class="line">            <span class="k">if</span> <span class="o">(</span><span class="n">view</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">                <span class="n">view</span><span class="o">.</span><span class="na">setTranslationX</span><span class="o">(</span><span class="n">scrollXOffset</span> <span class="o">*</span> <span class="n">position</span><span class="o">);</span>
+</span><span class="line">            <span class="o">}</span>
+</span><span class="line">            <span class="n">scrollXOffset</span> <span class="o">*=</span> <span class="n">distanceCoefficient</span><span class="o">;</span>
+</span><span class="line">        <span class="o">}</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h1 id="section-2">背景渐变</h1>
+
+<p>留心才会发现，从第一页滑动到最后一页，背景色会平滑的从深蓝色过度到浅蓝色，这种效果又该怎么实现呢？</p>
+
+<p>用过 <code>Property Animation</code> 的同学应该知道，以前的 <code>Animation</code> 只能用在 <strong>View</strong> 上，而 <code>Property Animation</code> 却可以用在任意类型属性值上，这归功于 <code>TypeEvaluator</code> 。</p>
+
+<p>正好我们有 <code>ArgbEvaluator</code> ，它可以估算两个颜色值之间，任意部分的色值。因此，只需要指定起始色值以及最终的色值，传入滑动所对应的 <code>fraction</code> 即当前位置相对总距离的比例值，即可获得相应的色值。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArgbEvaluator</span> <span class="kd">implements</span> <span class="n">TypeEvaluator</span> <span class="o">{</span>
+</span><span class="line">
+</span><span class="line">    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">evaluate</span><span class="o">(</span><span class="kt">float</span> <span class="n">fraction</span><span class="o">,</span> <span class="n">Object</span> <span class="n">startValue</span><span class="o">,</span> <span class="n">Object</span> <span class="n">endValue</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    	<span class="c1">// ...</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>当然，前面说到需要使用 <code>ViewPager.OnPageChangeListener</code> 的：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">class</span> <span class="nc">GuidePageChangeListener</span> <span class="kd">implements</span> <span class="n">ViewPager</span><span class="o">.</span><span class="na">OnPageChangeListener</span> <span class="o">{</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">ArgbEvaluator</span> <span class="n">mColorEvaluator</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="kt">int</span> <span class="n">mPageWidth</span><span class="o">,</span> <span class="n">mTotalScrollWidth</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="kt">int</span> <span class="n">mGuideStartBackgroundColor</span><span class="o">,</span> <span class="n">mGuideEndBackgroundColor</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="kd">public</span> <span class="nf">GuidePageChangeListener</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">mColorEvaluator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArgbEvaluator</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">mPageWidth</span> <span class="o">=</span> <span class="n">getWindowManager</span><span class="o">().</span><span class="na">getDefaultDisplay</span><span class="o">().</span><span class="na">getWidth</span><span class="o">();</span>
+</span><span class="line">        <span class="n">mTotalScrollWidth</span> <span class="o">=</span> <span class="n">mPageWidth</span> <span class="o">*</span> <span class="n">mAdapter</span><span class="o">.</span><span class="na">getCount</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line">        <span class="n">mGuideStartBackgroundColor</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">guide_start_background</span><span class="o">);</span>
+</span><span class="line">        <span class="n">mGuideEndBackgroundColor</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getColor</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">color</span><span class="o">.</span><span class="na">guide_end_background</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="nd">@Override</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageScrolled</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">float</span> <span class="n">positionOffset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">positionOffsetPixels</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="kt">float</span> <span class="n">ratio</span> <span class="o">=</span> <span class="o">(</span><span class="n">mPageWidth</span> <span class="o">*</span> <span class="n">position</span> <span class="o">+</span> <span class="n">positionOffsetPixels</span><span class="o">)</span> <span class="o">/</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">mTotalScrollWidth</span><span class="o">;</span>
+</span><span class="line">        <span class="n">Integer</span> <span class="n">color</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">mColorEvaluator</span><span class="o">.</span><span class="na">evaluate</span><span class="o">(</span><span class="n">ratio</span><span class="o">,</span> <span class="n">mGuideStartBackgroundColor</span><span class="o">,</span> <span class="n">mGuideEndBackgroundColor</span><span class="o">);</span>
+</span><span class="line">        <span class="n">mPager</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="nd">@Override</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageSelected</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{}</span>
+</span><span class="line">
+</span><span class="line">    <span class="nd">@Override</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageScrollStateChanged</span><span class="o">(</span><span class="kt">int</span> <span class="n">state</span><span class="o">)</span> <span class="o">{}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h1 id="section-3">源码</h1>
+
+<p>代码已经 <strong>push</strong> 到 <strong>Github</strong> 了，诸位自取。不过请注意，其素材均取自于知乎 Android 客户端（你懂的），学习交流即可，请勿用作商业用途。</p>
+
+<p>还求更优雅的实现方式，欢迎发起 <code>pull request</code> 。</p>
+
+<h2 id="github--zhihu-parallax-animation3">Github : <a href="https://github.com/ryanhoo/Zhihu-Parallax-Animation">Zhihu-Parallax-Animation</a></h2>
+
+<h1 id="section-4">参考</h1>
+
+<ol>
+  <li><a href="http://blog.neteril.org/blog/2014/01/02/using-parallax-for-fun-and-profit/">Using Parallax for Fun and Profit</a></li>
+  <li><a href="http://www.cnblogs.com/JoannaQ/archive/2013/02/08/2909111.html">视差滚动(Parallax Scrolling)效果的原理和实现</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git 从其它分支提取指定文件]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/07/11/checkout-files-from-another-branch/"/>
+    <updated>2014-07-11T11:38:28+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/07/11/checkout-files-from-another-branch</id>
+    <content type="html"><![CDATA[<p>在 Git 多个分支之间，使用 <strong>merge</strong> 或者 <strong>rebase</strong> 可以合并分支内容，非常方便，但是在特殊情况下，我需要从另外一个分支拉取一个或者某个指定的文件(夹)，手动 copy 代码当然可以，但是身为大程序猿，何须做这么接地气的事情？使用 <code>git checkout</code> 就可以轻松做到。</p>
+
+<h2 id="section">应用场景</h2>
+
+<h3 id="a">A</h3>
+
+<p>我在 feature/A 分支下工作，在即将完成的时候，接到 PM 老爷的通知，这个功能要大改，基本就报废了。重新开一个 branch ，发现新需求下，model 定义还是一样的，而我只需要 model 下那几个文件。</p>
+
+<h3 id="b">B</h3>
+
+<p>前几日用 NDK ，编译 .so 文件的时候，不知道什么问题，将 armeabi 目录下其它的 .so 文件都删除掉了，看到 git commit message 里提示删除，但是项目跑通没问题，当时就没在意。过了两天测试发现地图老是 crash ，发现了原因那就好办了~</p>
+
+<p>不过万一其它分支也没有这个文件肿么办？不要紧，<code>git reset --hard [delete commit hashcode]</code> 历史回溯到那个删除的节点，然后 在那个节点 folk 一个新分支，再将当前分支更新 <code>git reset  --hard origin/[remote branch]</code> ，在按照上面提到的思路执行就 ok 了。</p>
+
+<h2 id="section-1">从其它分支提取文件</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git checkout [branch] -- [file name]</span></code></pre></td></tr></table></div></figure></notextile></div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Google Is Making Android A Beautiful, Dynamic Scrapbook - A Closer Look At Material Design]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/07/08/google-is-making-android-a-beautiful/"/>
+    <updated>2014-07-08T23:47:37+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/07/08/google-is-making-android-a-beautiful</id>
+    <content type="html"><![CDATA[<p>Source: <a href="http://www.androidpolice.com/2014/07/02/google-is-making-android-a-beautiful-dynamic-scrapbook-a-closer-look-at-material-design/">http://www.androidpolice.com/2014/07/02/google-is-making-android-a-beautiful-dynamic-scrapbook-a-closer-look-at-material-design/</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Timer(Task) ？ Not in Android ！]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/26/do-not-use-timer-in-android/"/>
+    <updated>2014-06-26T20:55:04+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/26/do-not-use-timer-in-android</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">前言</a></li>
+  <li><a href="#section-1">解决方案</a>    <ul>
+      <li><a href="#timer">Timer</a></li>
+      <li><a href="#timertask">TimerTask</a></li>
+      <li><a href="#section-2">操作定时任务</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-3">参考</a></li>
+</ul>
+
+<h2 id="section">前言</h2>
+
+<p>我们对于 <code>java.util.Timer(Task)</code> 这两个类可谓不陌生，定时任务处处可见它俩如胶似漆的背影。只是，有心人必定会发现在 <strong>Android UI</strong> 中使用，它们带来的麻烦远远大于便利。</p>
+
+<p>我在多个场景碰到过这个问题，往往是忍气吞声，不厌其烦的处理着它们的『身后事』，还得提防它们时而罢工的臭毛病。</p>
+
+<h2 id="section-1">解决方案</h2>
+
+<p>其实使用 Android 自己的 <a href="https://developer.android.com/reference/android/os/Handler.html">Handler</a> 就可以解决这个问题。而且有如下优点：</p>
+
+<ul>
+  <li>重用</li>
+</ul>
+
+<p>可以很好的重用我们的定时任务，而以往使用 <code>Timer(Task)</code> ，我们不得不销毁，再 <code>new Timer(Task)</code>，不得不说是一种很粗鲁的方式。</p>
+
+<ul>
+  <li>可控性</li>
+</ul>
+
+<p><code>Timer(Task)</code> 的组合更像是离弦之箭，不能收发自如。而使用 <code>Handler</code> 的方式，调用 <code>removeCallbacks</code> 即可轻松暂停或者重置任务。</p>
+
+<h3 id="timer">Timer</h3>
+
+<p>使用 <a href="https://developer.android.com/reference/android/os/Handler.html">Handler</a> 来替代 <a href="https://developer.android.com/reference/java/util/Timer.html">Timer</a>。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Handler</span> <span class="n">timerHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Handler</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="timertask">TimerTask</h3>
+
+<p>简单可重用的 <code>Runnable</code> ，用来执行定时任务，但是这里是用的比较 <strong>Hack</strong> 的方式来实现循环的 Timer 功能的。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">CustomTimerTask</span> <span class="n">timerTask</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomTimerTask</span><span class="o">();</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">class</span> <span class="nc">CustomTimerTask</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+</span><span class="line">    <span class="nd">@Override</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">        <span class="c1">// scheduled tasks</span>
+</span><span class="line">
+</span><span class="line">        <span class="c1">// relaunch the task</span>
+</span><span class="line">        <span class="n">timerHandler</span><span class="o">.</span><span class="na">postDelayed</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">TIME_INTERVAL</span><span class="o">);</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="section-2">操作定时任务</h3>
+
+<p>我们可以轻松的启动或者停止这个定时任务。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">timerHandler</span><span class="o">.</span><span class="na">postDelayed</span><span class="o">(</span><span class="n">timerTask</span><span class="o">,</span> <span class="n">TIME_INTERVAL</span><span class="o">);</span> <span class="c1">// launch the task</span>
+</span><span class="line"><span class="n">timerHandler</span><span class="o">.</span><span class="na">removeCallbacks</span><span class="o">(</span><span class="n">timerTask</span><span class="o">);</span>	<span class="c1">// stop it</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section-3">参考</h2>
+
+<p><a href="http://www.mopri.de/2010/timertask-bad-do-it-the-android-way-use-a-handler/">Timer(Task) = bad! Do it the Android way: Use a Handler :)</a></p>
+
+<p><a href="http://docs.huihoo.com/android/2.1/resources/articles/timed-ui-updates.html">Updating the UI from a Timer</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【构建Android缓存模块】（三）Controller & 异步图片加载]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/17/build-android-cache-module-3/"/>
+    <updated>2014-06-17T15:48:38+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/17/build-android-cache-module-3</id>
+    <content type="html"><![CDATA[<p>上一篇博客我们学习了缓存模块的实现， 缓存分做两份：<code>Memory Cache</code>和<code>File Cache</code>。方法也很简单，分别是：</p>
+
+<ul>
+  <li>存储文件</li>
+  <li>按唯一key值索引文件</li>
+  <li>清空缓存</li>
+</ul>
+
+<p>区别在于内存缓存读取优先，因为它读写的速度更快。但是考虑到内存限制，退而选用文件存储，分担内存缓存的压力。</p>
+
+<p>原理非常简单，在第一课中已经详细分析了。那么要怎么才能将这个缓存模块与UI模块的显示关联起来呢？在这里我们需要一个控制器，掌管数据流向和读写，同时控制UI的显示。</p>
+
+<p>那么这个控制器需要以下的元素：</p>
+
+<ul>
+  <li>内存缓存</li>
+  <li>硬盘缓存</li>
+  <li>异步任务处理</li>
+  <li>控制UI显示</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="c1">//caches</span>
+</span><span class="line"><span class="kd">private</span> <span class="n">MemoryCache</span> <span class="n">memoryCache</span><span class="o">;</span>
+</span><span class="line"><span class="kd">private</span> <span class="n">FileCache</span> <span class="n">fileCache</span><span class="o">;</span>
+</span><span class="line"><span class="c1">//Asynchronous task</span>
+</span><span class="line"><span class="kd">private</span> <span class="kd">static</span> <span class="n">AsyncImageLoader</span> <span class="n">imageLoader</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>Memory Cache</code>和<code>File Cache</code>在上一课中有具体的实现，这里有一个异步的任务处理器—— <code>AsyncImageDownloader</code>，它用来在后台下载数据，完成下载后存储数据到缓存中，并更新UI的显示 。让我们来看看它是如何实现的：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">class</span> <span class="nc">AsyncImageDownloader</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">,</span> <span class="n">Void</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">&gt;{</span>
+</span><span class="line">	<span class="kd">private</span> <span class="n">ImageView</span> <span class="n">imageView</span><span class="o">;</span>
+</span><span class="line">	<span class="kd">private</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">;</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">public</span> <span class="nf">AsyncImageDownloader</span><span class="o">(</span><span class="n">ImageView</span> <span class="n">imageView</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">){</span>
+</span><span class="line">		<span class="k">this</span><span class="o">.</span><span class="na">imageView</span> <span class="o">=</span> <span class="n">imageView</span><span class="o">;</span>
+</span><span class="line">		<span class="k">this</span><span class="o">.</span><span class="na">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">;</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPreExecute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="kd">super</span><span class="o">.</span><span class="na">onPreExecute</span><span class="o">();</span>
+</span><span class="line">		<span class="n">imageView</span><span class="o">.</span><span class="na">setImageResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">placeholder</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">protected</span> <span class="n">Bitmap</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">Void</span><span class="o">...</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="na">getRealUrlOfPicture</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+</span><span class="line">		<span class="n">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpRetriever</span><span class="o">().</span><span class="na">requestGet</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line">		<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;url: &quot;</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
+</span><span class="line">		<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;respone: &quot;</span> <span class="o">+</span> <span class="n">response</span><span class="o">);</span>
+</span><span class="line">		<span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">		<span class="k">try</span> <span class="o">{</span>
+</span><span class="line">			<span class="k">if</span><span class="o">(</span><span class="n">response</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">				<span class="n">in</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">().</span><span class="na">getContent</span><span class="o">();</span>
+</span><span class="line">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalStateException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">			<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">			<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="c1">//TODO to be optimized: adjust the size of bitmap</span>
+</span><span class="line">		<span class="k">return</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="nd">@Override</span>
+</span><span class="line">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		<span class="kd">super</span><span class="o">.</span><span class="na">onPostExecute</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">result</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">imageView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">			<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">		<span class="c1">//TODO cache the bitmap both in sdcard &amp; memory</span>
+</span><span class="line">		<span class="n">memoryCache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span><span class="c1">// key is a unique token, value is the bitmap</span>
+</span><span class="line">		
+</span><span class="line">		<span class="n">fileCache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>可以看到这个类的构造函数需要两个参数，分别是文件名和对应要显示的<code>ImageView</code>，那么在任务开始的时候，可以为该<code>ImageView</code>设置未下载状态的图片，然后下载完成后更新UI。</p>
+
+<blockquote>
+  <p>注：需要提醒的是，这里的唯一key值，我使用的是文件名，因为我接收到的文件名是唯一的。猿媛们也可以根据自己的需求，设计自己的唯一key值算法。</p>
+</blockquote>
+
+<p>接下来，我们需要读用<code>key</code>值索引相应的<code>Bitmap</code>：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="n">Bitmap</span> <span class="nf">getBitmap</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+</span><span class="line">	<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">	<span class="c1">//1. search memory</span>
+</span><span class="line">	<span class="n">bitmap</span> <span class="o">=</span> <span class="n">memoryCache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span><span class="line">	
+</span><span class="line">	<span class="c1">//2. search sdcard</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">bitmap</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">		<span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="n">fileCache</span><span class="o">.</span><span class="na">getFile</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">file</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">			<span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapHelper</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="k">return</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>到这里，一个简单的缓存框架就搭建成功了。它简洁有效，但是非常单薄，似乎不够强大，需要你们根据自己的需求进行修改。另外它本来的目的就是用于演示，理解这个以后，我们再来看<code>Google</code>的<code>BitmapFun</code>。</p>
+
+<p>不过，我将它应用在一个小项目中，性能还不错。对于小项目的需求，应该是够的。</p>
+
+<p>最后，附上使用方法，以及整个类的代码。</p>
+
+<h2 id="section">使用</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">AsyncImageLoader</span> <span class="n">imageLoader</span> <span class="o">=</span> <span class="n">AsyncImageLoader</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="k">this</span><span class="o">);</span><span class="err">、</span>
+</span><span class="line"><span class="n">imageLoader</span><span class="o">.</span><span class="na">displayBitmap</span><span class="o">(</span><span class="n">imageView</span><span class="o">,</span> <span class="n">fileName</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="asyncimageloader">AsyncImageLoader</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+<span class="line-number">108</span>
+<span class="line-number">109</span>
+<span class="line-number">110</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AsyncImageLoader</span> <span class="o">{</span>
+</span><span class="line">
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&quot;AsyncImageLoader&quot;</span><span class="o">;</span>
+</span><span class="line">	
+</span><span class="line">	<span class="c1">//caches</span>
+</span><span class="line">	<span class="kd">private</span> <span class="n">MemoryCache</span> <span class="n">memoryCache</span><span class="o">;</span>
+</span><span class="line">	<span class="kd">private</span> <span class="n">FileCache</span> <span class="n">fileCache</span><span class="o">;</span>
+</span><span class="line">	<span class="c1">//Asynchronous task</span>
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">AsyncImageLoader</span> <span class="n">imageLoader</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">	<span class="kd">class</span> <span class="nc">AsyncImageDownloader</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">,</span> <span class="n">Void</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">&gt;{</span>
+</span><span class="line">		<span class="kd">private</span> <span class="n">ImageView</span> <span class="n">imageView</span><span class="o">;</span>
+</span><span class="line">		<span class="kd">private</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">;</span>
+</span><span class="line">		
+</span><span class="line">		<span class="kd">public</span> <span class="nf">AsyncImageDownloader</span><span class="o">(</span><span class="n">ImageView</span> <span class="n">imageView</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">){</span>
+</span><span class="line">			<span class="k">this</span><span class="o">.</span><span class="na">imageView</span> <span class="o">=</span> <span class="n">imageView</span><span class="o">;</span>
+</span><span class="line">			<span class="k">this</span><span class="o">.</span><span class="na">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">;</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPreExecute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">			<span class="kd">super</span><span class="o">.</span><span class="na">onPreExecute</span><span class="o">();</span>
+</span><span class="line">			<span class="n">imageView</span><span class="o">.</span><span class="na">setImageResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">placeholder</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">protected</span> <span class="n">Bitmap</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">Void</span><span class="o">...</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">			<span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="na">getRealUrlOfPicture</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+</span><span class="line">			<span class="n">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpRetriever</span><span class="o">().</span><span class="na">requestGet</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;url: &quot;</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;respone: &quot;</span> <span class="o">+</span> <span class="n">response</span><span class="o">);</span>
+</span><span class="line">			<span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">			<span class="k">try</span> <span class="o">{</span>
+</span><span class="line">				<span class="k">if</span><span class="o">(</span><span class="n">response</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">					<span class="n">in</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">().</span><span class="na">getContent</span><span class="o">();</span>
+</span><span class="line">			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalStateException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">				<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">				<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">			<span class="o">}</span>
+</span><span class="line">			
+</span><span class="line">			<span class="c1">//TODO to be optimized: adjust the size of bitmap</span>
+</span><span class="line">			<span class="k">return</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Bitmap</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">			<span class="kd">super</span><span class="o">.</span><span class="na">onPostExecute</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span><span class="line">			<span class="k">if</span><span class="o">(</span><span class="n">result</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">imageView</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">				<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span><span class="line">			
+</span><span class="line">			<span class="c1">//TODO cache the bitmap both in sdcard &amp; memory</span>
+</span><span class="line">			<span class="n">memoryCache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span><span class="c1">// key is a unique token, value is the bitmap</span>
+</span><span class="line">			
+</span><span class="line">			<span class="n">fileCache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">private</span> <span class="nf">AsyncImageLoader</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">){</span>
+</span><span class="line">		<span class="k">this</span><span class="o">.</span><span class="na">memoryCache</span> 		<span class="o">=</span> 	<span class="k">new</span> <span class="n">MemoryCache</span><span class="o">();</span>
+</span><span class="line">		<span class="k">this</span><span class="o">.</span><span class="na">fileCache</span>			<span class="o">=</span> 	<span class="k">new</span> <span class="n">FileCache</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncImageLoader</span> <span class="nf">getInstance</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">){</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">imageLoader</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">			<span class="n">imageLoader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AsyncImageLoader</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">		<span class="k">return</span> <span class="n">imageLoader</span><span class="o">;</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayBitmap</span><span class="o">(</span><span class="n">ImageView</span> <span class="n">imageView</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">){</span>
+</span><span class="line">		<span class="c1">//no pic for this item</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">fileName</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">fileName</span><span class="o">))</span>
+</span><span class="line">			<span class="k">return</span><span class="o">;</span>
+</span><span class="line">		
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">getBitmap</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+</span><span class="line">		<span class="c1">//search in cache, if there is no such bitmap, launch downloads</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">bitmap</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">			<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		<span class="k">else</span><span class="o">{</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Can&#39;t find the file you required.&quot;</span><span class="o">);</span>
+</span><span class="line">			<span class="k">new</span> <span class="nf">AsyncImageDownloader</span><span class="o">(</span><span class="n">imageView</span><span class="o">,</span> <span class="n">fileName</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">public</span> <span class="n">Bitmap</span> <span class="nf">getBitmap</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">		<span class="c1">//1. search memory</span>
+</span><span class="line">		<span class="n">bitmap</span> <span class="o">=</span> <span class="n">memoryCache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">		<span class="c1">//2. search sdcard</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">bitmap</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">			<span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="n">fileCache</span><span class="o">.</span><span class="na">getFile</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span><span class="line">			<span class="k">if</span><span class="o">(</span><span class="n">file</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">				<span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapHelper</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="k">return</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">clearCache</span><span class="o">(){</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">memoryCache</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">			<span class="n">memoryCache</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">fileCache</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">			<span class="n">fileCache</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section-1">源码</h2>
+
+<p>附上源码，不过服务器的源码暂时还没有放出来，先看看客户端的吧。</p>
+
+<p><a href="https://github.com/ryanhoo/SoftRead">https://github.com/ryanhoo/SoftRead</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【构建Android缓存模块】（二）Memory Cache & File Cache]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/05/build-android-cache-module-2/"/>
+    <updated>2014-06-05T23:34:36+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/05/build-android-cache-module-2</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#memory-cache">Memory Cache</a></li>
+  <li><a href="#file-cache">File Cache</a></li>
+</ul>
+
+<p>上一篇博客我们讲到普通应用缓存Bitmap的实现分析，根据 MVC 的实现原理，我将这个简单的缓存实现单独写成一个模块，这样可以方便以后的使用，对于任意的需求，都属于一个可插拔式的功能。</p>
+
+<p>之前提到，这个缓存模块主要有两个子部件：</p>
+
+<h2 id="memory-cache">Memory Cache</h2>
+
+<p>内存缓存的存取速度非常惊人，远远快于文件读取，如果没有内存限制，当然首选这种方式。遗憾的是我们有着<strong>16M</strong>的限制（当然大多数设备限制要高于 Android 官方说的这个数字），这也正是大 Bitmap容易引起 OOM 的原因。Memory Cache 将使用 <code>WeakHashMap</code> 作为缓存的中枢，当程序内存告急时，它会主动清理部分弱引用（因此，当引用指向为 null ，我们必须转向硬盘缓存读取数据，如果硬盘也没有，那还是重新下载吧）。</p>
+
+<p>能力越大，责任越大？人家只是跑得快了点儿，总得让人家休息，我们一定不希望让内存成为第一位跑完马拉松的 Pheidippides ，一次以后就挂了吧？作为精打细算的猿媛，我们只能将有限的内存分配给 Memory Cache ，将更繁重的任务托付给任劳任怨的 SDCard 。</p>
+
+<h2 id="file-cache">File Cache</h2>
+
+<p>硬盘读取速度当然不如内存，但是为了珍惜宝贵的流量，不让你的用户在月底没有流量时嚎叫着要删掉你开发的“流量杀手”，最好是避免重复下载。在第一次下载以后，将数据保存在本地即可。</p>
+
+<p>文件读写的技术并不是很新颖的技术，Java Core 那点儿就够你用了。不过要记得我们可是将Bitmap写入文件啊，怎么写入呢？不用着急，Android 的 Bitmap 本身就具备将数据写入 OutputStream 的能力。我将这些额外的方法写在一个帮助类中：BitmapHelper</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">saveBitmap</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">){</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">file</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">bitmap</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class="line">	<span class="k">try</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">BufferedOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+</span><span class="line">		<span class="k">return</span> <span class="n">bitmap</span><span class="o">.</span><span class="na">compress</span><span class="o">(</span><span class="n">CompressFormat</span><span class="o">.</span><span class="na">JPEG</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="n">out</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">		<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>最后附上Memory Cache和File Cache的具体代码，非常简单。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemoryCache</span> <span class="o">{</span>
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&quot;MemoryCache&quot;</span><span class="o">;</span>
+</span><span class="line">	
+</span><span class="line">	<span class="c1">//WeakReference Map: key=string, value=Bitmap</span>
+</span><span class="line">    <span class="kd">private</span> <span class="n">WeakHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">&gt;</span> <span class="n">cache</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">&gt;();</span>
+</span><span class="line">
+</span><span class="line">    <span class="cm">/**</span>
+</span><span class="line"><span class="cm">     * Search the memory cache by a unique key. </span>
+</span><span class="line"><span class="cm">     * @param key Should be unique. </span>
+</span><span class="line"><span class="cm">     * @return The Bitmap object in memory cache corresponding to specific key.</span>
+</span><span class="line"><span class="cm">     * */</span>
+</span><span class="line">    <span class="kd">public</span> <span class="n">Bitmap</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+</span><span class="line">        <span class="k">if</span><span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class="line">        	<span class="k">return</span> <span class="n">cache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span><span class="line">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="cm">/**</span>
+</span><span class="line"><span class="cm">     * Put a bitmap into cache with a unique key.</span>
+</span><span class="line"><span class="cm">     * @param key Should be unique.</span>
+</span><span class="line"><span class="cm">     * @param value A bitmap.</span>
+</span><span class="line"><span class="cm">     * */</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">value</span><span class="o">){</span>
+</span><span class="line">    	<span class="k">if</span><span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">    		<span class="n">cache</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+</span><span class="line">    		<span class="c1">//Log.i(TAG, &quot;cache bitmap: &quot; + key);</span>
+</span><span class="line">    		<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;size of memory cache: &quot;</span> <span class="o">+</span> <span class="n">cache</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+</span><span class="line">    	<span class="o">}</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line">
+</span><span class="line">    <span class="cm">/**</span>
+</span><span class="line"><span class="cm">     * clear the memory cache.</span>
+</span><span class="line"><span class="cm">     * */</span>
+</span><span class="line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">cache</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileCache</span> <span class="o">{</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="s">&quot;MemoryCache&quot;</span><span class="o">;</span>
+</span><span class="line">	
+</span><span class="line">	<span class="kd">private</span> <span class="n">File</span> <span class="n">cacheDir</span><span class="o">;</span>	<span class="c1">//the directory to save images</span>
+</span><span class="line">
+</span><span class="line">	<span class="cm">/**</span>
+</span><span class="line"><span class="cm">	 * Constructor</span>
+</span><span class="line"><span class="cm">	 * @param context The context related to this cache.</span>
+</span><span class="line"><span class="cm">	 * */</span>
+</span><span class="line">	<span class="kd">public</span> <span class="nf">FileCache</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		<span class="c1">// Find the directory to save cached images</span>
+</span><span class="line">		<span class="k">if</span> <span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Environment</span><span class="o">.</span><span class="na">getExternalStorageState</span><span class="o">()</span>
+</span><span class="line">				<span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED</span><span class="o">))</span>
+</span><span class="line">			<span class="n">cacheDir</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span>
+</span><span class="line">					<span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Environment</span><span class="o">.</span><span class="na">getExternalStorageDirectory</span><span class="o">(),</span>
+</span><span class="line">					<span class="n">Config</span><span class="o">.</span><span class="na">CACHE_DIR</span><span class="o">);</span>
+</span><span class="line">		<span class="k">else</span>
+</span><span class="line">			<span class="n">cacheDir</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getCacheDir</span><span class="o">();</span>
+</span><span class="line">		<span class="k">if</span> <span class="o">(!</span><span class="n">cacheDir</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span>
+</span><span class="line">			<span class="n">cacheDir</span><span class="o">.</span><span class="na">mkdirs</span><span class="o">();</span>
+</span><span class="line">		
+</span><span class="line">		<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;cache dir: &quot;</span> <span class="o">+</span> <span class="n">cacheDir</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">	<span class="cm">/**</span>
+</span><span class="line"><span class="cm">	 * Search the specific image file with a unique key.</span>
+</span><span class="line"><span class="cm">	 * @param key Should be unique.</span>
+</span><span class="line"><span class="cm">	 * @return Returns the image file corresponding to the key.</span>
+</span><span class="line"><span class="cm">	 * */</span>
+</span><span class="line">	<span class="kd">public</span> <span class="n">File</span> <span class="nf">getFile</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">cacheDir</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+</span><span class="line">		<span class="k">if</span> <span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;the file you wanted exists &quot;</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+</span><span class="line">			<span class="k">return</span> <span class="n">f</span><span class="o">;</span>
+</span><span class="line">		<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;the file you wanted does not exists: &quot;</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">	<span class="cm">/**</span>
+</span><span class="line"><span class="cm">	 * Put a bitmap into cache with a unique key.</span>
+</span><span class="line"><span class="cm">	 * @param key Should be unique.</span>
+</span><span class="line"><span class="cm">	 * @param value A bitmap.</span>
+</span><span class="line"><span class="cm">	 * */</span>
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">value</span><span class="o">){</span>
+</span><span class="line">		<span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">cacheDir</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(!</span><span class="n">f</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span>
+</span><span class="line">			<span class="k">try</span> <span class="o">{</span>
+</span><span class="line">				<span class="n">f</span><span class="o">.</span><span class="na">createNewFile</span><span class="o">();</span>
+</span><span class="line">			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">			<span class="o">}</span>
+</span><span class="line">		<span class="c1">//Use the util&#39;s function to save the bitmap.</span>
+</span><span class="line">		<span class="k">if</span><span class="o">(</span><span class="n">BitmapHelper</span><span class="o">.</span><span class="na">saveBitmap</span><span class="o">(</span><span class="n">f</span><span class="o">,</span> <span class="n">value</span><span class="o">))</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Save file to sdcard successfully!&quot;</span><span class="o">);</span>
+</span><span class="line">		<span class="k">else</span>
+</span><span class="line">			<span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Save file to sdcard failed!&quot;</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	
+</span><span class="line">	<span class="cm">/**</span>
+</span><span class="line"><span class="cm">	 * Clear the cache directory on sdcard.</span>
+</span><span class="line"><span class="cm">	 * */</span>
+</span><span class="line">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">		<span class="n">File</span><span class="o">[]</span> <span class="n">files</span> <span class="o">=</span> <span class="n">cacheDir</span><span class="o">.</span><span class="na">listFiles</span><span class="o">();</span>
+</span><span class="line">		<span class="k">for</span> <span class="o">(</span><span class="n">File</span> <span class="n">f</span> <span class="o">:</span> <span class="n">files</span><span class="o">)</span>
+</span><span class="line">			<span class="n">f</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>没什么难的地方，直接贴代码。下一篇博客我将讲解如何使用异步任务下载数据，以及使用Controller操作Model，控制View的显示。 </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【构建Android缓存模块】（一）吐槽与原理分析]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/04/build-android-cache-module-1/"/>
+    <updated>2014-06-04T22:32:52+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/04/build-android-cache-module-1</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">摘要</a></li>
+  <li><a href="#section-1">前言</a></li>
+  <li><a href="#section-2">自力更生，构建自己的缓存模块</a></li>
+  <li><a href="#oom">如何解决OOM</a></li>
+  <li><a href="#section-3">佛说引用，既非引用，是名引用。</a></li>
+  <li><a href="#section-4">原理示意图</a></li>
+  <li><a href="#section-5">参考资料</a></li>
+</ul>
+
+<h2 id="section">摘要</h2>
+
+<p>在我翻译的 <a href="http://my.oschina.net/ryanhoo/blog?catalog=260281">Google 官方系列教程</a>中，Bitmap 系列由浅入深地介绍了如何正确的解码 Bitmap ，异步线程操作以及使用 Fragments 重用等技术，并且在最后给出了非常强大的独家秘笈：<code>BitmapFun</code> ，让猿媛们得以一窥究竟 Google 的攻城师们是如何高屋建瓴地秒杀 <strong>OOM</strong> 的。</p>
+
+<h2 id="section-1">前言</h2>
+
+<p>在下载到 <a href="http://vdisk.weibo.com/s/hNgFB">BitmapFun.rar</a> 这个神圣的压缩包以后，我是双手颤抖，似乎是打开上古秘藏一般，心情激动导致久久不能自已。我还记得那天上海下着小雨，我当时霍然起身，伫立在 23 楼的窗台，仰着头向江水对岸的东方明珠望去，似乎这样我郁积已久的眼泪就不能掉下来。说到这里，Ryan 又暗自抹了一把眼泪。短暂地忘记了过去的黑暗时光，那一个漫长的被 <strong>OOM</strong> 的淫威所折磨的盛夏。。。</p>
+
+<p>最后在 Boss诧异的目光中，我回到办公桌，按捺着内心汹涌的情绪波动，然后小心翼翼的打开 BitmapFun.rar 。当那些在洪荒时代就活跃在Android平台的大师们书写的篇章呈现在我眼前时，我的表情与阿宝从师父手里得到 <strong>Dragon Scroll</strong> 时一般，永久的定格在了极度天真的期待与眼角一抽一抽的状态。</p>
+
+<p>那些泛黄的代码在我看去，通篇只有一句话：<code>老子看不懂！</code></p>
+
+<h2 id="section-2">自力更生，构建自己的缓存模块</h2>
+
+<p>Google 的这个 demo 堪称详尽，考虑极其周详，自然是极好的。但是当原理被层层的“特殊情况”包装起来，原本简单的例子变得异常复杂，几个类之间的关系错综复杂，堪比吸血鬼日记几个帅哥美女之间的关系。要理解清楚每一句代码的含义，你一定要有理解 Matt 那人老珠黄的老娘和他和失落的好朋友 Taylor 搞在一起的觉悟。</p>
+
+<p>好了，吐槽一下就收，千万不要怀疑 Google ，人家已经仁至义尽了。 BitmapFun 中在下载后将 Bitmap 缓存起来，缓存做了两份：<code>LruCache</code> 和 <code>DiskLruCache</code> ，分别是内存缓存和硬盘缓存。此外两个至关重要的类是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">BitmapWorkerTask</span><span class="o">(</span><span class="n">ImageView</span> <span class="n">imageView</span><span class="o">)</span>
+</span><span class="line">
+</span><span class="line"><span class="n">AsyncDrawable</span> <span class="kd">extends</span> <span class="n">BitmapDrawable</span>
+</span><span class="line">    <span class="nf">AsyncDrawable</span><span class="o">(</span><span class="n">Resources</span> <span class="n">res</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span><span class="n">BitmapWorkerTask</span> <span class="n">bitmapWorkerTask</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>BitmapWorkerTask</code> 持有一个 <code>WeakReference&lt;ImageView&gt; imageViewReference</code> ，弱引用 <code>ImageView</code> ，用作异步处理加载图片的任务。
+<code>AsyncDrawable</code> 巧妙的引用持有弱引用 <code>WeakReference&lt;BitmapWorkerTask&gt; bitmapWorkerTaskReference</code> ，是 <code>BitmapDrawable</code> 的子类，这样就可以 <code>setImageBitmap(AsyncDrawable)</code>。</p>
+
+<p>关系：<code>AsyncDrawable</code> 中弱引用 <code>BitmapWorkerTask</code> 。其实是图片引用 <code>ImageView</code> 的关系，而<code>ImageView.getDrawable</code> 又可以获得图片。这种高妙的思想不是正值得我们学习么？   </p>
+
+<p>当然，这节课并不是讲解官方Demo的，在讲解它之前，我们先来学习一个更加简单的缓存实现方案，使用最简单的方式快速构建自己应用的缓存模块，有效避免 OOM 异常。它的难度非常小也很方便理解，可以在这个缓存实现的基础上，我们再去理解更加高妙的 BitmapFun 的缓存实现方案。</p>
+
+<h2 id="oom">如何解决OOM</h2>
+
+<p>Bitmap 之所以容易引起OOM异常，原因已经在 Bitmap 系列教程中说的明明白白。但是我们至少清楚一点：一个手机屏幕再大，合理尺寸的 Bitmap 也不至于耗空所有内存，那要怎么做才能避免 OOM 呢？</p>
+
+<ul>
+  <li>加载合理尺寸的 Bitmap </li>
+  <li>避免反复解码、重复加载 Bitmap</li>
+  <li>控制 Bitmap 的生命周期，合理回收</li>
+</ul>
+
+<p>此外网上也有不少歪门邪道，我个人认为是不可取的，使用这些简单粗暴的方法，后期会为你带来更大的麻烦：</p>
+
+<ul>
+  <li>减损图片质量（使用过高的 inSampleSize 值）</li>
+  <li>使用 decodeStream （绕过 Java 层，直接调用 JNI ）</li>
+  <li>强制增加heap size</li>
+  <li>其他</li>
+</ul>
+
+<p>控制Bitmap的生命周期才是正解， BitmapFun 使用的 LruCache 是将它将最近被引用到的对象存储在一个强引用的 LinkedHashMap 中，并且在缓存超过了指定大小之后将最近不常使用的对象释放掉。</p>
+
+<p>Memory Cache 的 Size 是受限的，因此加入 DiskLruCache ，虽然在访问速度上逊于 Memory Cache ，但是速度也是相当可观的。</p>
+
+<p>借鉴 Google 的做法，我也将缓存做了两份，一份是 Memory Cache ，使用弱引用的 WeakHashMap 来控制 Bitmap 的生命周期，后面会有详细解释。另一份严格来说不能算是缓存，直接将文件存储在 SDCard 上，避免重复下载。</p>
+
+<h2 id="section-3">佛说引用，既非引用，是名引用。</h2>
+
+<p>关于引用，或许对于小菜鸟们不是很好理解（我碰到过太多 Java 都没学好来做 Android 的，基础很重要！）。我使用金刚经的著名三段论来解释它：<code>佛说XX，既非XX，是名XX。</code></p>
+
+<p>这句话什么意思呢？比如佛说大米，既可以说它不是大米，只是名字叫做大米罢了。不会因为你为它改名叫做大麦而改变它的本质，你叫它做水，吃到嘴里的还是原来的味道。</p>
+
+<p>关于引用，跟这个有着非常相似的共性。引用就相当于实际对象的名字，比如下面的例子：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Person</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+</span><span class="line"><span class="n">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class="line"><span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span><span class="o">;</span>
+</span><span class="line"><span class="n">p1</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p><code>new Person()</code>这个对象的名是 p1 ，而后你将名字改成了 p2 ，对象还是那个对象，不会因为你将 p1 的大名盖在 null 的头上而改变它的本质。以上的 p1 和 p2 都是引用，它们都不过是名。</p>
+
+<blockquote>
+  <p>在了解到引用的含义后，虚拟机会告诉你，被引用的对象处于可获得( reachable )状态，它是你的好管家，既然你要用它，它就不会回收它。（你想想如果你正在吃一只烤鸭，人家突然一把抢了过去扔垃圾桶了你什么感觉。）</p>
+</blockquote>
+
+<blockquote>
+  <p>如果在上面的那段程序后面加上 <code>p2 = null</code>，Person 这个对象就没有任何引用指向它了，垃圾回收器会在不确定的时间进行回收。（你都把东西扔了，总不能不让人家收破烂吧？）</p>
+</blockquote>
+
+<blockquote>
+  <p>如果你想继续持有这个对象的引用，希望可以继续访问，但是也允许垃圾回收器进行回收，该怎么办呢？（你想减肥，告诉你的好朋友说，如果察觉到你太胖了，就将你嘴里的烤鸭抢去扔了。如果你很饿，身材也不错，你要继续吃。）</p>
+</blockquote>
+
+<p>这个时候，我们需要借助 Java 提供的软/弱/虚引用。我们平时使用的如 p1 和 p2 这样的叫做强引用(Strong Reference)。要使垃圾回收器能在内存不够的时候，主动抢下你嘴里的烤鸭，进行回收，需要使用这些：</p>
+
+<ul>
+  <li>软引用：SoftReference</li>
+  <li>弱引用：WeakReference</li>
+  <li>虚引用：PhantomReference</li>
+</ul>
+
+<p>它们按照由强到弱的引用关系排列，虚引用相当于几乎没有引用。文艺青年常说的若即若离用来形容它再恰当不过了。</p>
+
+<p>关于这三个引用的具体学习，详见我提供的参考资料。这里只是向你解释为什么使用弱引用可以起到防止 Bitmap 过多而导致内存紧张的作用。</p>
+
+<p>在这里，由于我需要使用 Bitmap 和名字的 key-value 对应关系，我使用 Java 提供的 <code>WeakHashMap(String key, Bitmap value)</code> ，顾名思义，它用来保存 WeakReference ，并且确保每个 key 只对应一个值，在内存不够的时候，垃圾回收器会进行回收。当 key 值索引不到 Bitmap ，再进行其他的操作。</p>
+
+<h2 id="section-4">原理示意图</h2>
+
+<p>我将原理画成图，以便大家的理解。主体有三个，分别是 UI ，缓存模块和数据源。它们之间的关系如下：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/130726_4p9B_245415.png" alt="原理示意图" /></p>
+
+<p>① UI：请求数据，使用唯一的 Key 值索引 Memory Cache 中的 Bitmap 。</p>
+
+<p>② 内存缓存：缓存搜索，如果能找到 Key 值对应的 Bitmap ，则返回数据。否则执行第三步。</p>
+
+<p>③ 硬盘存储：使用唯一 Key 值对应的文件名，检索 SDCard 上的文件。</p>
+
+<p>④ 如果有对应文件，使用 BitmapFactory.decode* 方法，解码 Bitmap 并返回数据，同时将数据写入缓存。如果没有对应文件，执行第五步。</p>
+
+<p>⑤ 下载图片：启动异步线程，从数据源下载数据(Web)。</p>
+
+<p>⑥ 若下载成功，将数据同时写入硬盘和缓存，并将 Bitmap 显示在 UI 中。</p>
+
+<p>总结：这节课除了吐槽，主要的还是原理分析。如果你有更好的缓存方案，欢迎提出。下节课将讲解具体的 Memory Cache 和 FileCache 如何实现。</p>
+
+<h2 id="section-5">参考资料</h2>
+
+<p>【1】<a href="http://vdisk.weibo.com/s/jtqjr">Thinking In Java 4th Chapter 17.12 Hoding References.pdf</a></p>
+
+<p>【2】<a href="http://vdisk.weibo.com/s/jtqjr">李刚：突破程序员基本功的16课之Java的内存回收.pdf</a>  </p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android大图片裁剪终极解决方案（下：拍照截图）]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/03/the-ultimate-approach-to-crop-photos-on-android-3/"/>
+    <updated>2014-06-03T22:34:51+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/03/the-ultimate-approach-to-crop-photos-on-android-3</id>
+    <content type="html"><![CDATA[<p>上一篇博客中，我们学习到了如何使用Android相册截图。在这篇博客中，我将向大家展示如何拍照截图。</p>
+
+<p>拍照截图有点儿特殊，要知道，现在的Android智能手机的摄像头都是几百万的像素，拍出来的图片都是非常大的。因此，我们不能像对待相册截图一样使用Bitmap小图，无论大图小图都统一使用Uri进行操作。</p>
+
+<h4 id="uri">一、首先准备好需要使用到的Uri：</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">IMAGE_FILE_LOCATION</span> <span class="o">=</span> <span class="s">&quot;file:///sdcard/temp.jpg&quot;</span><span class="o">;</span><span class="c1">//temp file</span>
+</span><span class="line"><span class="n">Uri</span> <span class="n">imageUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">IMAGE_FILE_LOCATION</span><span class="o">);</span><span class="c1">//The Uri to store the big bitmap</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="mediastoreactionimagecapturecamera">二、使用MediaStore.ACTION_IMAGE_CAPTURE可以轻松调用Camera程序进行拍照：</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">ACTION_IMAGE_CAPTURE</span><span class="o">);</span><span class="c1">//action is capture</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">EXTRA_OUTPUT</span><span class="o">,</span> <span class="n">imageUri</span><span class="o">);</span>
+</span><span class="line"><span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">TAKE_BIG_PICTURE</span><span class="o">);</span><span class="c1">//or TAKE_SMALL_PICTURE</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="onactivityresulturiuri">三、接下来就可以在 onActivityResult中拿到返回的数据（Uri），并将Uri传递给截图的程序。</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="k">switch</span> <span class="o">(</span><span class="n">requestCode</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">TAKE_BIG_PICTURE:</span>
+</span><span class="line">	<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;TAKE_BIG_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span><span class="c1">//it seems to be null</span>
+</span><span class="line">	<span class="c1">//TODO sent to crop</span>
+</span><span class="line">	<span class="n">cropImageUri</span><span class="o">(</span><span class="n">imageUri</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="n">CROP_BIG_PICTURE</span><span class="o">);</span>
+</span><span class="line">	
+</span><span class="line">	<span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">TAKE_SMALL_PICTURE:</span>
+</span><span class="line">	<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;TAKE_SMALL_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span>
+</span><span class="line">	<span class="c1">//TODO sent to crop </span>
+</span><span class="line">	<span class="n">cropImageUri</span><span class="o">(</span><span class="n">imageUri</span><span class="o">,</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">150</span><span class="o">,</span> <span class="n">CROP_SMALL_PICTURE</span><span class="o">);</span>
+</span><span class="line">	
+</span><span class="line">	<span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>可以看到，无论是拍大图片还是小图片，都是使用的Uri，只是尺寸不同而已。我们将这个操作封装在一个方法里面。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">cropImageUri</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">,</span> <span class="kt">int</span> <span class="n">outputX</span><span class="o">,</span> <span class="kt">int</span> <span class="n">outputY</span><span class="o">,</span> <span class="kt">int</span> <span class="n">requestCode</span><span class="o">){</span>
+</span><span class="line">	<span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.android.camera.action.CROP&quot;</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">setDataAndType</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="s">&quot;image/*&quot;</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;crop&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectX&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectY&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputX&quot;</span><span class="o">,</span> <span class="n">outputX</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputY&quot;</span><span class="o">,</span> <span class="n">outputY</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;scale&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">EXTRA_OUTPUT</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;return-data&quot;</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputFormat&quot;</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">.</span><span class="na">CompressFormat</span><span class="o">.</span><span class="na">JPEG</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class="line">	<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;noFaceDetection&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span> <span class="c1">// no face detection</span>
+</span><span class="line">	<span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">requestCode</span><span class="o">);</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section">四、最后一步，我们已经将数据传入裁剪图片程序，接下来要做的就是处理返回的数据了：</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="k">switch</span> <span class="o">(</span><span class="n">requestCode</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">CROP_BIG_PICTURE:</span><span class="c1">//from crop_big_picture</span>
+</span><span class="line">	<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;CROP_BIG_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span><span class="c1">//it seems to be null</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">imageUri</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">decodeUriAsBitmap</span><span class="o">(</span><span class="n">imageUri</span><span class="o">);</span>
+</span><span class="line">		<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	<span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">CROP_SMALL_PICTURE:</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">imageUri</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">decodeUriAsBitmap</span><span class="o">(</span><span class="n">imageUri</span><span class="o">);</span>
+</span><span class="line">		<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class="line">		<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;CROP_SMALL_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line">	<span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="k">default</span><span class="o">:</span>
+</span><span class="line">	<span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section-1">效果图：</h4>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/184229_tlMc_245415.gif" alt="截图演示" /></p>
+
+<blockquote>
+  <p>代码托管于GitHub，会不定期更新：<a href="https://github.com/ryanhoo/PhotoCropper">https://github.com/ryanhoo/PhotoCropper</a></p>
+</blockquote>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android大图片裁剪终极解决方案（中：从相册截图）]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/06/03/the-ultimate-approach-to-crop-photos-on-android-2/"/>
+    <updated>2014-06-03T22:21:35+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/06/03/the-ultimate-approach-to-crop-photos-on-android-2</id>
+    <content type="html"><![CDATA[<p>在这篇博客中，我将向大家展示如何从相册截图。</p>
+
+<p>上一篇博客中，我就拍照截图这一需求进行了详细的分析，试图让大家了解 Android 本身的限制，以及我们应当采取的实现方案。</p>
+
+<p>根据我们的分析与总结，图片的来源有拍照和相册，而可采取的操作有</p>
+
+<ul>
+  <li>使用Bitmap并返回数据</li>
+  <li>使用Uri不返回数据</li>
+</ul>
+
+<p>前面我们了解到，使用Bitmap有可能会导致图片过大，而不能返回实际大小的图片，我将采用大图Uri，小图Bitmap的数据存储方式。</p>
+
+<p>我们将要使用到URI来保存拍照后的图片：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">IMAGE_FILE_LOCATION</span> <span class="o">=</span> <span class="s">&quot;file:///sdcard/temp.jpg&quot;</span><span class="o">;</span><span class="c1">//temp file</span>
+</span><span class="line"><span class="n">Uri</span> <span class="n">imageUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">IMAGE_FILE_LOCATION</span><span class="o">);</span><span class="c1">//The Uri to store the big bitmap</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>不难知道，我们从相册选取图片的<strong>Action</strong>为<code>Intent.ACTION_GET_CONTENT</code>。</p>
+
+<p>根据我们上一篇博客的分析，我准备好了两个实例的Intent。</p>
+
+<h4 id="section">一、从相册截大图：</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_GET_CONTENT</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="s">&quot;image/*&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;crop&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectX&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectY&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputX&quot;</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputY&quot;</span><span class="o">,</span> <span class="mi">300</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;scale&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;return-data&quot;</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">EXTRA_OUTPUT</span><span class="o">,</span> <span class="n">imageUri</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputFormat&quot;</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">.</span><span class="na">CompressFormat</span><span class="o">.</span><span class="na">JPEG</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;noFaceDetection&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span> <span class="c1">// no face detection</span>
+</span><span class="line"><span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">CHOOSE_BIG_PICTURE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section-1">二、从相册截小图</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_GET_CONTENT</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="s">&quot;image/*&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;crop&quot;</span><span class="o">,</span> <span class="s">&quot;true&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectX&quot;</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;aspectY&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputX&quot;</span><span class="o">,</span> <span class="mi">200</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputY&quot;</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;scale&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;return-data&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputFormat&quot;</span><span class="o">,</span> <span class="n">Bitmap</span><span class="o">.</span><span class="na">CompressFormat</span><span class="o">.</span><span class="na">JPEG</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;noFaceDetection&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span> <span class="c1">// no face detection</span>
+</span><span class="line"><span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">CHOOSE_SMALL_PICTURE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="onactivityresult">三、对应的onActivityResult可以这样处理返回的数据</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="k">switch</span> <span class="o">(</span><span class="n">requestCode</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">CHOOSE_BIG_PICTURE:</span>
+</span><span class="line">	<span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;CHOOSE_BIG_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span><span class="c1">//it seems to be null</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">imageUri</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">decodeUriAsBitmap</span><span class="o">(</span><span class="n">imageUri</span><span class="o">);</span><span class="c1">//decode bitmap</span>
+</span><span class="line">		<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="k">case</span> <span class="nl">CHOOSE_SMALL_PICTURE:</span>
+</span><span class="line">	<span class="k">if</span><span class="o">(</span><span class="n">data</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span><span class="line">		<span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getParcelableExtra</span><span class="o">(</span><span class="s">&quot;data&quot;</span><span class="o">);</span>
+</span><span class="line">		<span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class="line">		<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;CHOOSE_SMALL_PICTURE: data = &quot;</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span>
+</span><span class="line">	<span class="o">}</span>
+</span><span class="line"><span class="k">break</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section-2">效果图</h4>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/183645_yuLJ_245415.gif" alt="大图" /></p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/183707_DnNy_245415.gif" alt="小图" /></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android大图片裁剪终极解决方案（上：原理分析）]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/05/26/the-ultimate-approach-to-crop-photos-on-android-1/"/>
+    <updated>2014-05-26T17:37:42+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/05/26/the-ultimate-approach-to-crop-photos-on-android-1</id>
+    <content type="html"><![CDATA[
+<p>约几个月前，我正为公司的APP在Android手机上实现拍照截图而烦恼不已。</p>
+
+<p>上网搜索，确实有不少的例子，大多都是抄来抄去，而且水平多半处于demo的样子，可以用来讲解知识点，但是一碰到实际项目，就漏洞百出。</p>
+
+<p>当时我用大众化的解决方案，暂时性的做了一个拍照截图的功能，似乎看起来很不错。可是问题随之而来，我用的是小米手机，在别的手机上都运行正常，在小米这里却总是碰钉子。虽然我是个理性的米粉，但是也暗地里把小米的工程师问候了个遍。真是惭愧！</p>
+
+<p>翻文档也找不出个答案来，我一直对<strong>com.android.camera.action.CROP</strong>持有大大的疑问，它是从哪里来，它能干什么，它接收处理什么类型的数据？Google对此却讳莫如深，在官方文档中只有Intent中有只言片语言及，却不甚详尽。</p>
+
+<p>随着项目的驱动，我不能抱着不了解原理就不往前走的心态，唯一要做的，是解决问题。最后在德问上找到一条解决方案，说是哪怕是大米也没问题。当时乐呵呵将代码改了改，确实在所有的手机上跑起来了，一时如释重负，对这个的疑问也抛诸脑后了。</p>
+
+<p>直到月前，BOSS要求将拍照上传到服务器的图片分辨率加倍。OK，加倍简单，增加<code>outputX</code>以及<code>outputY</code>不就得了？</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputX&quot;</span><span class="o">,</span> <span class="n">outputX</span><span class="o">);</span>
+</span><span class="line"><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;outputY&quot;</span><span class="o">,</span> <span class="n">outputY</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>这一增加，吓了我一跳。BOSS的手机拍到的照片几乎就是个缩略图，但是被我问候了全体工程师的小米在这个时候就体现出国产神机的范儿了，小米上的尺寸一切正常。这个为什么呢？我大致了解原因，却不知道如何解决。</p>
+
+<p>在Android中，Intent触发Camera程序，拍好照片后，将会返回数据，但是考虑到内存问题，Camera不会将全尺寸的图像返回给调用的Activity，一般情况下，有可能返回的是缩略图，比如<strong>120*160px</strong>。</p>
+
+<p>这是为什么呢？这不是一个Bug，而是经过精心设计的，却对开发者不透明。</p>
+
+<p>以我的小米手机为例，摄像头800W像素，根据我目前设置拍出来的图片尺寸为<strong>3200*2400px</strong>。有人说，那就返回呗，大不了耗1-2M的内存，不错，这个尺寸的图片确实只有1.8M左右的大小。但是你想不到的是，这个尺寸对应的Bitmap会耗光你应用程序的所有内存。Android出于安全性考虑，只会给你一个寒碜的缩略图。</p>
+
+<p>在Android2.3中，默认的Bitmap为32位，类型是<code>ARGB_8888</code>，也就意味着一个像素点占用4个字节的内存。我们来做一个简单的计算题：</p>
+
+<p><code>3200*2400*4 bytes =   30M</code></p>
+
+<p>如此惊人的数字！哪怕你愿意为一张生命周期超不过10s的位图愿意耗费这么巨大的内存，Android也不会答应的。</p>
+
+<blockquote>
+  <p>Mobile devices typically have constrained system resources. 
+Android devices can have as little as 16MB of memory available to a single application.</p>
+</blockquote>
+
+<p>这是Android Doc的原文，虽然不同手机系统的厂商可能围绕16M这个数字有微微的上调，但是这30M，一般的手机还真挥霍不起。也只有小米这种牛机，内存堪比个人PC，本着土财主般挥金如土的霸气才能做到。</p>
+
+<p>OK，说了这么多，无非是吐吐苦水，爆爆个人经历而已，实际的解决方案在哪里呢？</p>
+
+<p>我也是Google到的，话说一般百度不了的问题，那就<code>Google</code>或者直接<code>StackOverFlow</code>，只不过得看英文罢了。</p>
+
+<p>最后翻来覆去，我在国外的一个Android团队的博客中找到了相应的方案，印证了我的猜想同时也给出了实际的代码。</p>
+
+<p>我将这篇文章翻译成了中文，作为本博客的基础，建议详细看看。</p>
+
+<p><a href="http://my.oschina.net/ryanhoo/blog/86843">【译】如何使用Android MediaStore裁剪大图片</a></p>
+
+<p>这篇博客了不起的地方在于解决了Android对返回图片的大小限制，并且详细解释了裁剪图片的<code>Intent</code>附加数据的具体含义。我只是站在巨人的肩膀上，改善方案，适应更广泛需求而已。</p>
+
+<p>拿图说事儿：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/144805_wCcI_245415.png" alt="Intent Options" /></p>
+
+<p><code>Intent("com.android.camera.action.CROP")</code>对应的所有可选数据都一目了然。在了解上面个个选项的含义之后，我们将目光着眼于三个极为重要的选项：</p>
+
+<ul>
+  <li>data</li>
+  <li>MediaStore.EXTRA_OUTPUT</li>
+  <li>return-data</li>
+</ul>
+
+<p><code>data和MediaStore.EXTRA_OUTPUT</code>都是可选的传入数据选项，你可以选择设置data为Bitmap，或者将相应的数据与URI关联起来，你也可以选择是否返回数据（return-data: true）。</p>
+
+<p>为什么还有不用返回数据的选项？如果对URI足够了解的话，应该知道URI与File相似，你所有的操作如裁剪将数据都保存在了URI中，你已经持有了相应的URI，也就无需多此一举，再返回Bitmap了。</p>
+
+<p>前面已经说到，可以设置data为Bitmap，但是这种操作的限制在于，你的Bitmap不能太大。因此，我们前进的思路似乎明确了：截大图用URI，小图用Bitmap。</p>
+
+<p>我将这个思路整理成一张图片：</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/android/151831_7gRC_245415.png" alt="idea" /></p>
+
+<p>这篇主要让大家了解需求的来源，以及如何去思考分析并解决问题。下一篇博客将介绍具体的操作。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【译】Android：更好的自定义字体方案]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/05/05/android-better-way-to-apply-custom-font/"/>
+    <updated>2014-05-05T17:48:26+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/05/05/android-better-way-to-apply-custom-font</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#section">情景</a></li>
+  <li><a href="#section-1">解决方案</a>    <ul>
+      <li><a href="#android-1">1）Android默认方法 #1</a></li>
+      <li><a href="#android-2">2）Android默认方法 #2</a></li>
+      <li><a href="#section-2">3）我的解决方案</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-3">译者注</a></li>
+  <li><a href="#section-4">参考</a></li>
+</ul>
+
+<blockquote>
+  <p>原文：<a href="http://vision-apps.blogspot.hk/2012/02/android-better-way-to-apply-custom-font.html">http://vision-apps.blogspot.hk/2012/02/android-better-way-to-apply-custom-font.html</a></p>
+</blockquote>
+
+<p>在一个应用中，我需要在所有的UI组件中使用客户提供的字体。这听起来似乎是个很稀松平常的任务，不是吗？是的，我当时也是这么想的。然后我震惊了，Android竟然没有提供一个简单优雅的方式来做这件事情!</p>
+
+<p>所以，在这篇文章中我会展示Android提供的默认方法，然后我会分享更加简单优雅的解决方案。</p>
+
+<h3 id="section">情景</h3>
+
+<p>你需要为整个应用替换自定义字体。</p>
+
+<h3 id="section-1">解决方案</h3>
+
+<h4 id="android-1">1）Android默认方法 #1</h4>
+
+<p>你可以通过ID查找到View，然后挨个为它们设置字体。在单个View的情况下，它看起来也没有那么可怕。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="n">Typeface</span> <span class="n">customFont</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getAssets</span><span class="o">(),</span> <span class="s">&quot;fonts/YourCustomFont.ttf&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="n">TextView</span> <span class="n">view</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">activity_main_header</span><span class="o">);</span>
+</span><span class="line"><span class="n">view</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">customFont</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>但是在很多TextView、Button等文本组件的情况下，我敢肯定你不会喜欢这个方法的。:D</p>
+
+<h4 id="android-2">2）Android默认方法 #2</h4>
+
+<p>你可以为每个文本组件创建一个子类，如TextView、Button等，然后在构造函数中加载自定义字体。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BrandTextView</span> <span class="kd">extends</span> <span class="n">TextView</span> <span class="o">{</span>
+</span><span class="line">
+</span><span class="line">      <span class="kd">public</span> <span class="nf">BrandTextView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">,</span> <span class="kt">int</span> <span class="n">defStyle</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">          <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">,</span> <span class="n">defStyle</span><span class="o">);</span>
+</span><span class="line">      <span class="o">}</span>
+</span><span class="line">     <span class="kd">public</span> <span class="nf">BrandTextView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">          <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+</span><span class="line">      <span class="o">}</span>
+</span><span class="line">     <span class="kd">public</span> <span class="nf">BrandTextView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">          <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class="line">     <span class="o">}</span>
+</span><span class="line">     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTypeface</span><span class="o">(</span><span class="n">Typeface</span> <span class="n">tf</span><span class="o">,</span> <span class="kt">int</span> <span class="n">style</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">           <span class="k">if</span> <span class="o">(</span><span class="n">style</span> <span class="o">==</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">BOLD</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">                <span class="kd">super</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getContext</span><span class="o">().</span><span class="na">getAssets</span><span class="o">(),</span> <span class="s">&quot;fonts/YourCustomFont_Bold.ttf&quot;</span><span class="o">));</span>
+</span><span class="line">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class="line">               <span class="kd">super</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getContext</span><span class="o">().</span><span class="na">getAssets</span><span class="o">(),</span> <span class="s">&quot;fonts/YourCustomFont.ttf&quot;</span><span class="o">));</span>
+</span><span class="line">            <span class="o">}</span>
+</span><span class="line">      <span class="o">}</span>
+</span><span class="line"> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>然后只需要将标准的文本控件替换成你自定义的就可以了（例如BrandTextView替换TextView）。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class="xml"><span class="line"><span class="nt">&lt;com.your.package.BrandTextView</span>
+</span><span class="line">         <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class="line">         <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class="line">         <span class="na">android:text=</span><span class="s">&quot;View with custom font&quot;</span><span class="nt">/&gt;</span>
+</span><span class="line"><span class="nt">&lt;com.your.package.BrandTextView</span>
+</span><span class="line">         <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class="line">         <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class="line">         <span class="na">android:textStyle=</span><span class="s">&quot;bold&quot;</span>
+</span><span class="line">         <span class="na">android:text=</span><span class="s">&quot;View with custom font and bold typeface&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>还有，你甚至可以直接在XML中添加自定义的字体属性。要实现这个，你需要定义你自己的<code>declare-styleable</code>属性，然后在组件的构造函数中解析它们。</p>
+
+<p>为了不占篇幅介绍这么基础的东西，这里有一篇不错的文章告诉你怎么自定义控件属性。</p>
+
+<blockquote>
+  <p><a href="http://kevindion.com/2011/01/custom-xml-attributes-for-android-widgets/">http://kevindion.com/2011/01/custom-xml-attributes-for-android-widgets/</a></p>
+</blockquote>
+
+<p>在大多数情况下，这个方法还不赖，并且有一些优点（例如，切换字体粗细等等，字体可以在组件xml文件的typeface属性中定义）。但是我认为这个实现方法还是太重量级了，并且依赖大量的模板代码，为了一个替换字体的简单任务，有点儿得不偿失。</p>
+
+<h4 id="section-2">3）我的解决方案</h4>
+
+<p>理想的解决方案是自定义主题，然后应用到全局或者某个Activity。
+但不幸的是，Android的<code>android:typeface</code>属性只能用来设置系统内嵌的字体，而非用户自定义字体(例如assets文件中的字体)。这就是为什么我们无法避免在Java代码中加载并设置字体。</p>
+
+<p>所以我决定创建一个帮助类，使得这个操作尽可能的简单。使用方法：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="xml"><span class="line">FontHelper.applyFont(context, findViewById(R.id.activity_root), &quot;fonts/YourCustomFont.ttf&quot;);
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>并且这行代码会用来加载所有的基于TextView的文本组件（TextView、Button、RadioButton、ToggleButton等等），而无需考虑界面的布局层级如何。</p>
+
+<p><img src="http://ryanhoo.github.io/images/blog/2014-05-05-before and after.png" alt="标准(左)与自定义(右)字体的用法。" /></p>
+
+<p>这是怎么做到的？非常简单：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">applyFont</span><span class="o">(</span><span class="kd">final</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kd">final</span> <span class="n">View</span> <span class="n">root</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">fontName</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">    <span class="k">try</span> <span class="o">{</span>
+</span><span class="line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="k">instanceof</span> <span class="n">ViewGroup</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">            <span class="n">ViewGroup</span> <span class="n">viewGroup</span> <span class="o">=</span> <span class="o">(</span><span class="n">ViewGroup</span><span class="o">)</span> <span class="n">root</span><span class="o">;</span>
+</span><span class="line">            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">viewGroup</span><span class="o">.</span><span class="na">getChildCount</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span>
+</span><span class="line">                <span class="n">applyFont</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">viewGroup</span><span class="o">.</span><span class="na">getChildAt</span><span class="o">(</span><span class="n">i</span><span class="o">),</span> <span class="n">fontName</span><span class="o">);</span>
+</span><span class="line">        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="k">instanceof</span> <span class="n">TextView</span><span class="o">)</span>
+</span><span class="line">            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="n">root</span><span class="o">).</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getAssets</span><span class="o">(),</span> <span class="n">fontName</span><span class="o">));</span>
+</span><span class="line">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;Error occured when trying to apply %s font for %s view&quot;</span><span class="o">,</span> <span class="n">fontName</span><span class="o">,</span> <span class="n">root</span><span class="o">));</span>
+</span><span class="line">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class="line">    <span class="o">}</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>正如你所看到的，所需要做的仅仅是将基于TextView的文本组件从布局中遍历出来而已。</p>
+
+<p>你可以在这里下载到示例代码，里面有<a href="http://db.tt/i9S80Mgr"><code>FontHelper</code></a>的具体用法。</p>
+
+<h3 id="section-3">译者注</h3>
+
+<p>在多个项目中，我都碰到过类似的需求，早期采用的是第二种实现方法，但是缺点在于对于第三方组件，你需要去修改别人的代码，才能实现自定义字体，这恰恰违反了OC（Open &amp; Close）原则，对扩展开放，对修改封闭。</p>
+
+<p>刚看到第三种的时候，也是惊为天人，姑且不说结果，我觉得这种活跃的思路非常重要，很值得学习参考。</p>
+
+<p>但是最后被team里的人否决了，理由是违背组件设计原则，实现方式略嫌粗暴。后来我仔细想想，一个是要做好内存管理（似乎会引起内存问题），视图状态改变，也要重复加载（横竖屏、onResume等），也绝对不是简单的活儿。</p>
+
+<p>所以暂定使用第一种方法，typeface使用单例，需要时设置字体。</p>
+
+<p>我个人觉得第一种还是个体力活，而且到后来，这个代码重复率还是非常高的，这又违背了DRY原则。</p>
+
+<p>在地铁上的时候，突然想到DI（Dependency Inject）。已经有一些DI的框架，如ButterKnife，那写出来应该是这样：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="nd">@CustomFont</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">)</span> <span class="n">TextView</span> <span class="n">textView</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>or</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="nd">@InjectView</span><span class="o">(</span><span class="n">id</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">,</span> <span class="n">customFont</span><span class="o">=</span><span class="kc">true</span><span class="o">)</span> <span class="n">View</span> <span class="n">anyView</span>
+</span><span class="line"><span class="nd">@InjectView</span><span class="o">(</span><span class="n">id</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textView</span><span class="o">,</span> <span class="n">customFont</span><span class="o">=</span><span class="kc">true</span><span class="o">,</span> <span class="n">font</span><span class="o">=</span><span class="s">&quot;fonts/ltfz.ttf&quot;</span><span class="o">)</span> <span class="n">View</span> <span class="n">anyView</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>这样写出来代码相比重复写setTypeface要好一些。</p>
+
+<p>目前我们的项目还没有使用这类DI框架，等以后引入了，使用第二种注入，写起来应该是很爽的。</p>
+
+<p>保持更新。</p>
+
+<h3 id="section-4">参考</h3>
+
+<ul>
+  <li><a href="http://www.javacodegeeks.com/2014/02/dependency-injection-options-for-java.html">DI框架</a></li>
+  <li><a href="http://stormzhang.github.io/openandroid/android/2014/01/12/android-butterknife/">ButterKnife</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Octopress搭建自己的博客]]></title>
+    <link href="http://ryanhoo.github.io/blog/2014/04/28/build-your-own-blog-with-octopress/"/>
+    <updated>2014-04-28T22:07:27+08:00</updated>
+    <id>http://ryanhoo.github.io/blog/2014/04/28/build-your-own-blog-with-octopress</id>
+    <content type="html"><![CDATA[<ul id="markdown-toc">
+  <li><a href="#step-1-octopress">Step 1: 安装Octopress</a></li>
+  <li><a href="#step-2-">Step 2: 配置</a></li>
+  <li><a href="#step-3-github-pages">Step 3: 设置github pages</a></li>
+  <li><a href="#step-4-">Step 4: 编译、预览与发布</a></li>
+  <li><a href="#step-5--octopress">Step 5: 更新 Octopress</a></li>
+  <li><a href="#section">参考</a></li>
+</ul>
+
+<p>一直想搭建一个自己的博客，开始付诸行动！</p>
+
+<p>刚刚接触到Octopress，总体感觉还是不错的，但是它不像segmentfault、oschina之类的平台，什么都具备，很多东西默认没有，需要自己配置，不过在玩的过程中总是能学到新东西的。</p>
+
+<h2 id="step-1-octopress">Step 1: 安装Octopress</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git clone git://github.com/imathis/octopress.git octopress
+</span><span class="line">cd octopress
+</span><span class="line">bundle update    # 安装依赖的组件
+</span><span class="line">rake install     # 安装默认的Octopress主题</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="step-2-">Step 2: 配置</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git remote rm origin
+</span><span class="line">git remote add origin git@github.com:ryanhoo/ryanhoo.github.com.git
+</span><span class="line">git remote add octopress git://github.com/imathis/octopress.git  # 为了octopress的升级而添加</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="step-3-github-pages">Step 3: 设置github pages</h2>
+
+<p>在github上创建一个仓库，注意仓库名称要以下这种格式yourname.github.com，这样代码发布后自动这个url就可以访问了（此处一定要注意哦，我刚开始没注意，死活没得到想要的效果）。 例如你的 GitHub 帐号是 jack 就将 Repository 命名为 jack.github.com， 完成后会得到一组 GitHub Pages URL http://yourname.github.com/ (注意不能用 https协议，必须用 http协议)。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">rake setup_github_pages</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="step-4-">Step 4: 编译、预览与发布</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">rake generate  			# 生成网页
+</span><span class="line">rake preview   			# 预览
+</span><span class="line">rake deploy    			# 发布
+</span><span class="line">rake gen_deploy 		# 相当于生成+发布
+</span><span class="line">rake new_page["name"] 	# 创建新页面
+</span><span class="line">rake new_post["name"]	# 新建博文</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="step-5--octopress">Step 5: 更新 Octopress</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git remote add octopress git://github.com/imathis/octopress.git
+</span><span class="line">git pull octopress master     # Get the latest Octopress
+</span><span class="line">bundle install                # Keep gems updated
+</span><span class="line">rake update_source            # update the template's source
+</span><span class="line">rake update_style             # update the template's style</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="section">参考</h2>
+
+<ul>
+  <li><a href="https://github.com/shashankmehta/greyshade">主题配置</a></li>
+  <li><a href="http://imallen.com/blog/2013/05/12/add-support-for-weibo-and-dribbble-to-greyshade.html">增加新浪微博链接</a></li>
+  <li><a href="http://docs.shopify.com/themes/liquid-basics">Liquid Basics</a></li>
+  <li><a href="http://khaos.github.io/blog/2012/12/05/generating-toc-in-octopress/">添加目录</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
