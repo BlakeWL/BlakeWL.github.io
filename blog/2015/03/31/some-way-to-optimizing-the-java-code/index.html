@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Optimizing the Java code - WeiLong Chen</title>
+	<meta name="author" content="Ryan Hoo">
+
+		
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Ryan Hoo" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://ryanhoo.github.io/blog/2014/06/17/build-android-cache-module-3/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+
+
+<header id="header" class="inner">
+	
+<h1><a href="/">WeiLong Chen</a></h1>
+<p class="subtitle">This is weilong's blog. Here is the place that I will write down something about my life.</p>
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+</ul></nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		<a class="github" href="https://github.com/BlakeWL" title="GitHub">GitHub</a>
+		
+		
+		<a class="email" href="https://weilong.chen@foxmail.com" title="Email">Email</a>
+
+		
+	</div>
+</nav>
+
+</header>					
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Optimizing the Java code</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Some tips of Optimizing the code。</p>
+<p>This blog is about some tips of how to optimizing the java code,I will write down some principles or some code about this.</p>
+<ul>
+  <li>Don't initialize the object in a loop</li>
+  <li>Avoid String concatenation in a loop</li>
+  <li>Use StringBuilder to build a large String</li>
+</ul>
+
+<h2 >Use System.arraycopy</h2>
+
+<p>usually,we copy the array using a loop like this:</p>
+
+<pre class="brush:java">
+
+int[] copy = new int [length];
+
+for(int i=0;i&lt;length;i++)
+
+{
+
+ copy [i] = array[i];
+
+}
+
+</pre>
+
+<p>and you can use the System.arraycopy to do the same thing:</p>
+<pre class="brush:java">
+
+int length = array.length;
+
+int[] copy = new int [length];
+
+System.arraycopy(array, 0, copy, 0, length);
+
+
+</pre>
+
+<p>Using System.arraycopy is faster than copy a array in a loop</p>
+
+<h2 >About I/O Streams</h2>
+
+<p>First thing to remember is <code>closing streams</code>,the best way to do this is in a finally block.
+Second,<code>Buffering</code>,the BufferedInputStream stores all the bytes that the FileInputStream sends until it reaches its limit,the default limit is 512 bytes.</p>
+<pre class="brush:java">
+try{
+
+                          InputStream in = new FileInputStream(fileFrom);
+
+                          inBuffer = new BufferedInputStream(in);
+
+                          OutputStream out = new FileOutputStream(fileTo);
+
+                          outBuffer = new BufferedOutputStream(out);
+
+                          while(true){
+
+                                          int bytedata = inBuffer.read();
+
+                                          if(bytedata == -1)
+
+                                          break;
+
+                                          out.write(bytedata);
+
+                          }
+
+             }
+
+             finally{
+
+              if(inBuffer != null)
+
+                          inBuffer.close();
+
+              if(outBuffer !=null)
+
+                          outBuffer.close();
+
+             }
+
+</pre>
+
+<p>a better way is to use the method available() to define the size of the byte array.</p>
+<pre class="brush:java">
+ try{
+
+                          in = new FileInputStream(fileFrom);
+
+                          out = new FileOutputStream(fileTo);
+
+                          int availableLength = in.available();
+
+                          byte[] totalBytes = new byte[availableLength];
+
+                          int bytedata = in.read(totalBytes);
+
+                          out.write(totalBytes);
+
+                            
+
+             }
+
+             finally{
+
+              if(in != null)
+
+                          in.close();
+
+              if(out !=null)
+
+                          out.close();
+
+             }
+
+</pre>
+
+
+
+
+</div>
+
+</article>
+
+</div>
+</div>
+<footer id="footer" class="inner">Copyright &copy; 2015  WeiLong Chen
+
+<br/>
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<br/>
+Template Copied From <a href="http://ryanhoo.github.io">Ryan Hoo</a>
+</footer>
+
+
+
+	</div>
+	</div>
+</body>
+</html>
