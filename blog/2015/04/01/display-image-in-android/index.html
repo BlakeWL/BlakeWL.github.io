@@ -1,0 +1,326 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>高效显示bitmap -WeiLong Chen</title>
+	<meta name="author" content="Ryan Hoo">
+
+	
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Ryan Hoo" type="application/atom+xml">
+	
+	
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	
+</head>
+
+
+<body>
+		<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner">
+	
+<h1><a href="/">WeiLong Chen</a></h1>
+<p class="subtitle">This is weilong's blog. Here is the place that I will write down something about my life.</p>
+<nav id="main-nav"><ul class="main">
+    <li><a href="/">Blog</a></li>
+</ul></nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		<a class="github" href="https://github.com/BlakeWL" title="GitHub">GitHub</a>
+		
+		
+		<a class="email" href="https://weilong.chen@foxmail.com" title="Email">Email</a>
+
+		
+		
+	</div>
+</nav>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+
+					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">高效显示bitmap</h1>
+	<div class="entry-content" itemprop="articleBody">
+
+
+<p>这篇博客是关于高效显示bitmap系列的,主要是从developer android 摘取过来的,在<a href="http://developer.android.com/training/displaying-bitmaps/index.html">这里</a>,第一部分是要高效的加载bitmap,分为</p>
+<ul>
+  <li>先读取位图的尺寸和类型</li>
+  <li>根据位图和要显示的大小计算缩放的比例</li>
+  <li>根据缩放比例显示位图</li>
+</ul>
+<p>首先,要获取位图的属性,需要设置options.inJustDecodeBounds = true,这个时候图片不会被加载进入内存,只是读取到了位图的属性</p>
+
+<pre class="brush:java">
+
+BitmapFactory.Options options = new BitmapFactory.Options();
+options.inJustDecodeBounds = true;
+BitmapFactory.decodeResource(getResources(), R.id.myimage, options);
+int imageHeight = options.outHeight;
+int imageWidth = options.outWidth;
+String imageType = options.outMimeType;
+
+</pre>
+
+<p>然后,计算缩放比例,这个比例就是BitmapFactory.Options的inSampleSize,可以这样计算</p>
+<pre class="brush:java">
+	public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    // Raw height and width of image
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+
+    if (height > reqHeight || width > reqWidth) {
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((halfHeight / inSampleSize) > reqHeight
+                && (halfWidth / inSampleSize) > reqWidth) {
+            inSampleSize *= 2;
+        }
+    }
+
+    return inSampleSize;
+}
+</pre>
+<p>最后才是真正的加载图片了</p>
+<pre class="brush:java">
+	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+        int reqWidth, int reqHeight) {
+
+    // First decode with inJustDecodeBounds=true to check dimensions
+    final BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inJustDecodeBounds = true;
+    BitmapFactory.decodeResource(res, resId, options);
+
+    // Calculate inSampleSize
+    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+    // Decode bitmap with inSampleSize set
+    options.inJustDecodeBounds = false;
+    return BitmapFactory.decodeResource(res, resId, options);
+}
+</pre>
+<p>封装后,要加载一张100x100的图片,只需要</p>
+<pre class="brush:java">
+	mImageView.setImageBitmap(
+    decodeSampledBitmapFromResource(getResources(), R.id.myimage, 100, 100));
+</pre>
+
+<h3>关于图片缓存</h3>
+<p>接下来是关于图片缓存的,这部分可以分为内存缓存和硬盘缓存,内存缓存是官方的LruCache,硬盘缓存是非官方的DiskLruCashe.</p>
+<h2>内存缓存 LruCache</h2>
+<p>LruCache是使用LinkedHashMap在缓存数量达到预设的值就将最近最少使用的移除,由support library 提供,关于缓存官方不再建议使用SoftReference和WeakReference,可以如下使用LruCache</p>
+<pre class="brush:java">
+	private LruCache<String, Bitmap> mMemoryCache;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Get max available VM memory, exceeding this amount will throw an
+    // OutOfMemory exception. Stored in kilobytes as LruCache takes an
+    // int in its constructor.
+    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+    // Use 1/8th of the available memory for this memory cache.
+    final int cacheSize = maxMemory / 8;
+
+    mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+        @Override
+        protected int sizeOf(String key, Bitmap bitmap) {
+            // The cache size will be measured in kilobytes rather than
+            // number of items.
+            return bitmap.getByteCount() / 1024;
+        }
+    };
+    ...
+}
+public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+    if (getBitmapFromMemCache(key) == null) {
+        mMemoryCache.put(key, bitmap);
+    }
+}
+
+public Bitmap getBitmapFromMemCache(String key) {
+    return mMemoryCache.get(key);
+}
+</pre>
+<p>在加载图片时候,先用LruCache检查是否命中,命中直接使用,否则就启用task获取图片</p>
+<pre class="brush:java">
+	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+    if (getBitmapFromMemCache(key) == null) {
+        mMemoryCache.put(key, bitmap);
+    }
+}
+
+public Bitmap getBitmapFromMemCache(String key) {
+    return mMemoryCache.get(key);
+}
+</pre>
+<p>在task获取图片之后,要记得将图片加入到LruCache中,</p>
+<pre class="brush:java">
+class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+    ...
+    // Decode image in background.
+    @Override
+    protected Bitmap doInBackground(Integer... params) {
+        final Bitmap bitmap = decodeSampledBitmapFromResource(
+                getResources(), params[0], 100, 100));
+        addBitmapToMemoryCache(String.valueOf(params[0]), bitmap);
+        return bitmap;
+    }
+    ...
+}
+</pre>
+
+<h2>硬盘缓存 DiskLruCache</h2>
+<p>在图片量大的情况下,LruCache是不够用的,类似新闻类的app,是把图片缓存到硬盘的,如果图片是长期的,类似照片查看的,就需要ContentProvider,这里介绍一下DiskLruCache的使用,初始化硬盘缓存需要读取操作,不能在主线程操作,为确保在缓存初始化完成之前不读取硬盘内容,使用一个锁进行实现.</p>
+<pre class="brush:java">
+	private DiskLruCache mDiskLruCache;
+private final Object mDiskCacheLock = new Object();
+private boolean mDiskCacheStarting = true;
+private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+private static final String DISK_CACHE_SUBDIR = "thumbnails";
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Initialize memory cache
+    ...
+    // Initialize disk cache on background thread
+    File cacheDir = getDiskCacheDir(this, DISK_CACHE_SUBDIR);
+    new InitDiskCacheTask().execute(cacheDir);
+    ...
+}
+
+class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
+    @Override
+    protected Void doInBackground(File... params) {
+        synchronized (mDiskCacheLock) {
+            File cacheDir = params[0];
+            mDiskLruCache = DiskLruCache.open(cacheDir, DISK_CACHE_SIZE);
+            mDiskCacheStarting = false; // Finished initialization
+            mDiskCacheLock.notifyAll(); // Wake any waiting threads
+        }
+        return null;
+    }
+}
+
+class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+    ...
+    // Decode image in background.
+    @Override
+    protected Bitmap doInBackground(Integer... params) {
+        final String imageKey = String.valueOf(params[0]);
+
+        // Check disk cache in background thread
+        Bitmap bitmap = getBitmapFromDiskCache(imageKey);
+
+        if (bitmap == null) { // Not found in disk cache
+            // Process as normal
+            final Bitmap bitmap = decodeSampledBitmapFromResource(
+                    getResources(), params[0], 100, 100));
+        }
+
+        // Add final bitmap to caches
+        addBitmapToCache(imageKey, bitmap);
+
+        return bitmap;
+    }
+    ...
+}
+
+public void addBitmapToCache(String key, Bitmap bitmap) {
+    // Add to memory cache as before
+    if (getBitmapFromMemCache(key) == null) {
+        mMemoryCache.put(key, bitmap);
+    }
+
+    // Also add to disk cache
+    synchronized (mDiskCacheLock) {
+        if (mDiskLruCache != null && mDiskLruCache.get(key) == null) {
+            mDiskLruCache.put(key, bitmap);
+        }
+    }
+}
+
+public Bitmap getBitmapFromDiskCache(String key) {
+    synchronized (mDiskCacheLock) {
+        // Wait while disk cache is started from background thread
+        while (mDiskCacheStarting) {
+            try {
+                mDiskCacheLock.wait();
+            } catch (InterruptedException e) {}
+        }
+        if (mDiskLruCache != null) {
+            return mDiskLruCache.get(key);
+        }
+    }
+    return null;
+}
+
+// Creates a unique subdirectory of the designated app cache directory. Tries to use external
+// but if not mounted, falls back on internal storage.
+public static File getDiskCacheDir(Context context, String uniqueName) {
+    // Check if media is mounted or storage is built-in, if so, try and use external cache dir
+    // otherwise use internal cache dir
+    final String cachePath =
+            Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                    !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
+                            context.getCacheDir().getPath();
+
+    return new File(cachePath + File.separator + uniqueName);
+}
+</pre>
+<p>关于LruCache和DiskLruCache,接下来找时间分析一下这两个类.</p>
+</div>
+
+</article>
+
+
+
+
+
+
+</div>
+</div>
+<footer id="footer" class="inner">Copyright &copy; 2015  WeiLong Chen
+
+<br/>
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<br/>
+Template Copied From <a href="http://ryanhoo.github.io">Ryan Hoo</a>
+</footer>
+
+
+
+	</div>
+	</div>
+</body>
+</html>
